@@ -135,6 +135,28 @@ function buildFeaturedStat(label, value, body) {
   return item;
 }
 
+function buildAppChip(label, value, body) {
+  const item = document.createElement("article");
+  item.className = "app-chip";
+  item.innerHTML = `
+    <p class="mini-label">${label}</p>
+    <strong>${value}</strong>
+    <p>${body}</p>
+  `;
+  return item;
+}
+
+function buildAppInsightCard(label, title, body, tone) {
+  const item = document.createElement("article");
+  item.className = `app-insight-card box--${tone}`;
+  item.innerHTML = `
+    <p class="mini-label">${label}</p>
+    <strong>${title}</strong>
+    <p>${body}</p>
+  `;
+  return item;
+}
+
 function buildBuildDetail(title, body, tone) {
   const item = document.createElement("article");
   item.className = `box box--${tone}`;
@@ -498,6 +520,51 @@ function buildNarrativeDetail(row, peerRows) {
   return wrapper;
 }
 
+function renderAppInsights(data) {
+  const signalStrip = document.getElementById("app-signal-strip");
+  const insightGrid = document.getElementById("app-insight-grid");
+  if (!signalStrip || !insightGrid) {
+    return;
+  }
+
+  const topAsset = data.top_assets[0];
+  const topNarrative = data.top_narratives[0];
+  const bearishShare = `${data.overview.bearish_count}/${data.overview.asset_count}`;
+  const mixedShare = `${data.overview.mixed_count}/${data.overview.asset_count}`;
+
+  signalStrip.append(
+    buildAppChip("Snapshot posture", bearishShare, "Assets currently tagged with bearish attention in the exported gold layer."),
+    buildAppChip("Mixed regimes", mixedShare, "Assets where the current state is not cleanly directional."),
+    buildAppChip("Top asset", topAsset?.symbol || "N/A", "Current attention leader in the tracked universe."),
+    buildAppChip("Top narrative", formatNarrativeLabel(topNarrative?.narrative || "N/A"), "Leading cluster by aggregated attention."),
+  );
+
+  insightGrid.append(
+    buildAppInsightCard(
+      "Leader Read",
+      `${topAsset?.symbol || "N/A"} is the current focus`,
+      topAsset
+        ? `${topAsset.symbol} leads the snapshot with ${formatNumber(topAsset.attention_score, 2)} attention and ${formatNarrativeLabel(topAsset.top_driver)} as the primary explanatory layer.`
+        : "No asset leader is available in the current export.",
+      "health",
+    ),
+    buildAppInsightCard(
+      "Narrative Read",
+      `${formatNarrativeLabel(topNarrative?.narrative || "N/A")} is leading`,
+      topNarrative
+        ? `${formatNarrativeLabel(topNarrative.narrative)} currently groups ${topNarrative.asset_count} tracked assets with average attention of ${formatNumber(topNarrative.avg_attention_score, 2)}.`
+        : "No narrative leader is available in the current export.",
+      "models",
+    ),
+    buildAppInsightCard(
+      "Build Read",
+      "Product surface over one exported truth",
+      "This app runs on the same generated payload used by the case study, which is the right boundary for evolving from portfolio artifact into a fuller analytical product.",
+      "ops",
+    ),
+  );
+}
+
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
     ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
@@ -781,6 +848,7 @@ function renderAppPage() {
     buildHeroMetric("Top narrative", formatNarrativeLabel(data.top_narratives[0]?.narrative || "N/A"), "current aggregated leader"),
   );
 
+  renderAppInsights(data);
   renderExplorer(data);
 }
 

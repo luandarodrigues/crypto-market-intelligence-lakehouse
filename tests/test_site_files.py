@@ -30,3 +30,6 @@ def test_site_includes_blueprint_and_asset_explorer_hooks():
     assert 'href="./app.html"' in html
     assert 'id="app-shell"' in app_html
     assert 'id="app-hero-title"' in app_html
+    assert 'id="app-signal-strip"' in app_html
+    assert 'id="app-insight-grid"' in app_html
+    assert "renderAppInsights" in js
