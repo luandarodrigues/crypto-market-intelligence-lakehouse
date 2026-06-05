@@ -163,54 +163,81 @@
           </div>
 
           <div class="explorer-shell reveal">
-            <div class="explorer-toolbar">
-              <div class="field">
-                <label for="narrative-filter">Narrative</label>
-                <select id="narrative-filter"></select>
+            <div class="explorer-mode-switch">
+              <button id="explorer-mode-assets" class="mode-chip is-active" type="button">Assets</button>
+              <button id="explorer-mode-narratives" class="mode-chip" type="button">Narratives</button>
+            </div>
+
+            <div id="asset-mode-panel">
+              <div class="explorer-toolbar">
+                <div class="field">
+                  <label for="narrative-filter">Narrative</label>
+                  <select id="narrative-filter"></select>
+                </div>
+                <div class="field">
+                  <label for="sort-filter">Sort by</label>
+                  <select id="sort-filter">
+                    <option value="attention_score">Attention</option>
+                    <option value="relative_strength_7d">RS 7d</option>
+                    <option value="quote_volume">Volume</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="regime-filter">Regime</label>
+                  <select id="regime-filter">
+                    <option value="all">All regimes</option>
+                    <option value="bullish_attention">Bullish attention</option>
+                    <option value="bearish_attention">Bearish attention</option>
+                    <option value="mixed_attention">Mixed attention</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="compare-asset-filter">Compare to</label>
+                  <select id="compare-asset-filter"></select>
+                </div>
               </div>
-              <div class="field">
-                <label for="sort-filter">Sort by</label>
-                <select id="sort-filter">
-                  <option value="attention_score">Attention</option>
-                  <option value="relative_strength_7d">RS 7d</option>
-                  <option value="quote_volume">Volume</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="regime-filter">Regime</label>
-                <select id="regime-filter">
-                  <option value="all">All regimes</option>
-                  <option value="bullish_attention">Bullish attention</option>
-                  <option value="bearish_attention">Bearish attention</option>
-                  <option value="mixed_attention">Mixed attention</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="compare-asset-filter">Compare to</label>
-                <select id="compare-asset-filter"></select>
+
+              <div class="explorer-grid">
+                <article class="explorer-list-card">
+                  <div class="card-header">
+                    <h3>Asset List</h3>
+                    <p>Built from the gold attention output and enriched with market and derivatives context.</p>
+                  </div>
+                  <div id="asset-list" class="asset-list"></div>
+                </article>
+
+                <article class="explorer-detail-card">
+                  <div class="card-header">
+                    <h3>Selected Asset</h3>
+                    <p>A first product surface on top of the exported pipeline data, designed as a base for a fuller interactive app.</p>
+                  </div>
+                  <div id="asset-detail" class="asset-detail"></div>
+                  <div class="explorer-subgrid">
+                    <div id="compare-panel" class="subpanel"></div>
+                    <div id="narrative-pulse" class="subpanel"></div>
+                  </div>
+                </article>
               </div>
             </div>
 
-            <div class="explorer-grid">
-              <article class="explorer-list-card">
-                <div class="card-header">
-                  <h3>Asset List</h3>
-                  <p>Built from the gold attention output and enriched with market and derivatives context.</p>
-                </div>
-                <div id="asset-list" class="asset-list"></div>
-              </article>
+            <div id="narrative-mode-panel" class="is-hidden">
+              <div class="explorer-grid">
+                <article class="explorer-list-card">
+                  <div class="card-header">
+                    <h3>Narrative List</h3>
+                    <p>Grouped pulse across the current tracked narratives.</p>
+                  </div>
+                  <div id="narrative-list" class="asset-list"></div>
+                </article>
 
-              <article class="explorer-detail-card">
-                <div class="card-header">
-                  <h3>Selected Asset</h3>
-                  <p>A first product surface on top of the exported pipeline data, designed as a base for a fuller interactive app.</p>
-                </div>
-                <div id="asset-detail" class="asset-detail"></div>
-                <div class="explorer-subgrid">
-                  <div id="compare-panel" class="subpanel"></div>
-                  <div id="narrative-pulse" class="subpanel"></div>
-                </div>
-              </article>
+                <article class="explorer-detail-card">
+                  <div class="card-header">
+                    <h3>Selected Narrative</h3>
+                    <p>A narrative-centric view for scanning leaders, breadth, and peer assets.</p>
+                  </div>
+                  <div id="narrative-detail" class="asset-detail"></div>
+                </article>
+              </div>
             </div>
           </div>
         </section>

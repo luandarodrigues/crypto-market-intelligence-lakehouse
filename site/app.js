@@ -219,6 +219,24 @@ function buildAssetItem(row, isActive) {
   return button;
 }
 
+function buildNarrativeItem(row, isActive) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `asset-item${isActive ? " is-active" : ""}`;
+  button.dataset.narrative = row.narrative;
+  button.innerHTML = `
+    <div class="asset-item-top">
+      <span class="asset-symbol">${formatNarrativeLabel(row.narrative)}</span>
+      <span class="tag">${row.asset_count} assets</span>
+    </div>
+    <p class="asset-meta">
+      Avg attention ${formatNumber(row.avg_attention_score, 2)} / Avg confirmation ${formatNumber(row.avg_confirmation_score, 2)} /
+      Leader ${row.leader_symbol}
+    </p>
+  `;
+  return button;
+}
+
 function buildAssetDetail(row) {
   const wrapper = document.createElement("div");
   if (!row) {
@@ -415,6 +433,71 @@ function buildNarrativePulsePanel(narrativeRow, peerRows) {
   return wrapper;
 }
 
+function buildNarrativeDetail(row, peerRows) {
+  const wrapper = document.createElement("div");
+  if (!row) {
+    wrapper.innerHTML = `
+      <div class="detail-copy">
+        <p>Select a narrative to inspect its current leader set and peer structure.</p>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  const broadCount = row.regime_mix.filter((value) => value === "bearish_attention" || value === "bullish_attention").length;
+
+  wrapper.innerHTML = `
+    <div class="detail-hero">
+      <div class="asset-detail-top">
+        <span class="detail-symbol">${formatNarrativeLabel(row.narrative)}</span>
+        <span class="tag">${row.asset_count} tracked assets</span>
+      </div>
+      <div class="detail-score-row">
+        <div class="detail-score">Leader ${row.leader_symbol}</div>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-metric">
+        <span>Avg attention</span>
+        <strong>${formatNumber(row.avg_attention_score, 3)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Avg confirmation</span>
+        <strong>${formatNumber(row.avg_confirmation_score, 4)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Directional assets</span>
+        <strong>${broadCount}/${row.asset_count}</strong>
+      </div>
+    </div>
+    <div class="detail-copy">
+      <p>
+        ${formatNarrativeLabel(row.narrative)} is currently led by <strong>${row.leader_symbol}</strong> and groups
+        ${row.asset_count} assets in the first public analytical surface.
+      </p>
+      <p>
+        This narrative mode is meant to show rotation and concentration patterns at the cluster level, which is a more
+        research-oriented view than scanning individual assets one by one.
+      </p>
+    </div>
+  `;
+
+  const peers = document.createElement("div");
+  peers.className = "peer-list";
+  peerRows.forEach((peer) => {
+    const item = document.createElement("div");
+    item.className = "peer-item";
+    item.innerHTML = `
+      <span class="peer-symbol">${peer.symbol}</span>
+      <span>${formatNumber(peer.attention_score, 2)}</span>
+      ${buildTag(formatNarrativeLabel(peer.regime_tag), regimeTone(peer.regime_tag))}
+    `;
+    peers.appendChild(item);
+  });
+  wrapper.appendChild(peers);
+  return wrapper;
+}
+
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
     ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
@@ -445,8 +528,14 @@ function renderExplorer(data) {
     filteredRows: data.asset_explorer_rows.slice(),
     selectedSymbol: data.asset_explorer_rows[0]?.symbol || null,
     compareSymbol: "none",
+    mode: "assets",
+    selectedNarrative: data.narrative_explorer_rows[0]?.narrative || null,
   };
 
+  const assetsModeButton = document.getElementById("explorer-mode-assets");
+  const narrativesModeButton = document.getElementById("explorer-mode-narratives");
+  const assetModePanel = document.getElementById("asset-mode-panel");
+  const narrativeModePanel = document.getElementById("narrative-mode-panel");
   const narrativeFilter = document.getElementById("narrative-filter");
   const sortFilter = document.getElementById("sort-filter");
   const regimeFilter = document.getElementById("regime-filter");
@@ -455,6 +544,8 @@ function renderExplorer(data) {
   const assetDetail = document.getElementById("asset-detail");
   const comparePanel = document.getElementById("compare-panel");
   const narrativePulse = document.getElementById("narrative-pulse");
+  const narrativeList = document.getElementById("narrative-list");
+  const narrativeDetail = document.getElementById("narrative-detail");
 
   const narratives = ["all", ...new Set(data.asset_explorer_rows.map((row) => row.narrative))];
   narratives.forEach((narrative) => {
@@ -495,6 +586,19 @@ function renderExplorer(data) {
     });
   }
 
+  function renderNarrativeList() {
+    narrativeList.innerHTML = "";
+    data.narrative_explorer_rows.forEach((row) => {
+      const item = buildNarrativeItem(row, row.narrative === state.selectedNarrative);
+      item.addEventListener("click", () => {
+        state.selectedNarrative = row.narrative;
+        renderNarrativeList();
+        renderNarrativeDetail();
+      });
+      narrativeList.appendChild(item);
+    });
+  }
+
   function renderDetail() {
     assetDetail.innerHTML = "";
     const selected = state.filteredRows.find((row) => row.symbol === state.selectedSymbol);
@@ -510,6 +614,23 @@ function renderExplorer(data) {
       .filter((row) => row.narrative === selected?.narrative)
       .sort((left, right) => right.attention_score - left.attention_score);
     narrativePulse.appendChild(buildNarrativePulsePanel(narrativeRow, peerRows));
+  }
+
+  function renderNarrativeDetail() {
+    narrativeDetail.innerHTML = "";
+    const selected = data.narrative_explorer_rows.find((row) => row.narrative === state.selectedNarrative);
+    const peerRows = state.rows
+      .filter((row) => row.narrative === selected?.narrative)
+      .sort((left, right) => right.attention_score - left.attention_score);
+    narrativeDetail.appendChild(buildNarrativeDetail(selected, peerRows));
+  }
+
+  function syncModeUi() {
+    const assetMode = state.mode === "assets";
+    assetModePanel.classList.toggle("is-hidden", !assetMode);
+    narrativeModePanel.classList.toggle("is-hidden", assetMode);
+    assetsModeButton.classList.toggle("is-active", assetMode);
+    narrativesModeButton.classList.toggle("is-active", !assetMode);
   }
 
   function applyFilters() {
@@ -535,7 +656,20 @@ function renderExplorer(data) {
     renderDetail();
   });
 
+  assetsModeButton.addEventListener("click", () => {
+    state.mode = "assets";
+    syncModeUi();
+  });
+
+  narrativesModeButton.addEventListener("click", () => {
+    state.mode = "narratives";
+    syncModeUi();
+  });
+
   applyFilters();
+  renderNarrativeList();
+  renderNarrativeDetail();
+  syncModeUi();
 }
 
 function renderSite() {

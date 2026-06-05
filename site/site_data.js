@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-05T19:35:41.249429+00:00",
+  "generated_at": "2026-06-05T20:43:41.185887+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
