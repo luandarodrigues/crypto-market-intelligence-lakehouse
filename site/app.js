@@ -672,7 +672,11 @@ function renderExplorer(data) {
   syncModeUi();
 }
 
-function renderSite() {
+function renderCaseStudyPage() {
+  if (!document.getElementById("hero-title")) {
+    return;
+  }
+
   const data = window.CMIL_SITE_DATA;
   if (!data) {
     return;
@@ -753,4 +757,32 @@ function renderSite() {
   activateRevealAnimations();
 }
 
-renderSite();
+function renderAppPage() {
+  const shell = document.getElementById("app-shell");
+  if (!shell) {
+    return;
+  }
+
+  const data = window.CMIL_SITE_DATA;
+  if (!data) {
+    return;
+  }
+
+  document.getElementById("app-hero-title").textContent = `${data.headline.title} App`;
+  document.getElementById("app-hero-subtitle").textContent =
+    "A dedicated interactive view on top of the exported gold-layer snapshot, designed as the next step beyond the portfolio case study.";
+  document.getElementById("generated-at").textContent = formatGeneratedAt(data.generated_at);
+
+  const appKpis = document.getElementById("app-kpis");
+  appKpis.append(
+    buildHeroMetric("Assets tracked", data.overview.asset_count, "current exported universe"),
+    buildHeroMetric("Narratives", data.narrative_explorer_rows.length, "cluster-level analytical views"),
+    buildHeroMetric("Top asset", data.top_assets[0]?.symbol || "N/A", "current attention leader"),
+    buildHeroMetric("Top narrative", formatNarrativeLabel(data.top_narratives[0]?.narrative || "N/A"), "current aggregated leader"),
+  );
+
+  renderExplorer(data);
+}
+
+renderCaseStudyPage();
+renderAppPage();
