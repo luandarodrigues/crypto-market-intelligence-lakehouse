@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 def test_project_scaffold_files_exist():
-    root = Path("work/crypto-market-intelligence-lakehouse")
+    root = Path(".")
     required = [
         root / "README.md",
         root / ".gitignore",

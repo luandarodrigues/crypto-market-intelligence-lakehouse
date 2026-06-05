@@ -7,10 +7,14 @@ def test_public_attention_record_hides_internal_noise():
         narrative="ai_data",
         attention_score=0.91,
         top_driver="onchain_confirmation",
+        regime_tag="bullish_attention",
+        confirmation_score=0.72,
     )
     assert row == {
         "symbol": "TAO",
         "narrative": "ai_data",
         "attention_score": 0.91,
         "top_driver": "onchain_confirmation",
+        "regime_tag": "bullish_attention",
+        "confirmation_score": 0.72,
     }

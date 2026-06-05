@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 def test_core_docs_exist():
-    root = Path("work/crypto-market-intelligence-lakehouse/docs")
+    root = Path("docs")
     required = [
         root / "architecture.md",
         root / "data_model.md",

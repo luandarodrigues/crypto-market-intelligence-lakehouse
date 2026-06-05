@@ -113,6 +113,8 @@ Whenever you rerun `python scripts/export_public_artifacts.py`, the embedded mic
 
 For Vercel deployment, the repo includes [`vercel.json`](vercel.json).
 
+The repository also includes an automated GitHub Actions refresh workflow in [`.github/workflows/refresh_snapshot.yml`](.github/workflows/refresh_snapshot.yml). It supports both manual runs and a scheduled refresh cadence, updating the committed `site/site_data.js` snapshot that powers the public app.
+
 ## Local Public Exports
 
 The script `scripts/export_public_artifacts.py` also writes local portfolio outputs outside the repository working tree. Those workspace-level files are useful during development, but the committed public artifact inside the repo is `site/site_data.js`, which powers the microsite.
