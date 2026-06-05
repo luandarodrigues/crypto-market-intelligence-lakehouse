@@ -80,6 +80,9 @@ def test_build_site_payload_summarizes_attention_and_regimes():
     assert payload["asset_explorer_rows"][1]["crowding_flag"] is True
     assert payload["asset_explorer_rows"][1]["funding_rate"] is None
     assert payload["databricks_blueprint"][0]["title"] == "Asset Bundles scaffold"
+    assert payload["narrative_explorer_rows"][0]["narrative"] == "bitcoin_ecosystem"
+    assert payload["narrative_explorer_rows"][1]["leader_symbol"] == "SOL"
+    assert payload["narrative_explorer_rows"][1]["asset_symbols"] == ["SOL"]
 
 
 def test_build_site_data_script_creates_browser_global():

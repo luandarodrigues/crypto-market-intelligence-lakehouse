@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-05T16:43:39.342982+00:00",
+  "generated_at": "2026-06-05T19:35:41.249429+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
@@ -245,6 +245,79 @@ window.CMIL_SITE_DATA = {
       "crowding_flag": false,
       "funding_rate": null,
       "open_interest": null
+    }
+  ],
+  "narrative_explorer_rows": [
+    {
+      "narrative": "bitcoin_ecosystem",
+      "asset_count": 1,
+      "avg_attention_score": 8.350192,
+      "avg_confirmation_score": 0.6667,
+      "leader_symbol": "BTC",
+      "asset_symbols": [
+        "BTC"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
+      "narrative": "ethereum_ecosystem",
+      "asset_count": 1,
+      "avg_attention_score": 6.089575,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "ETH",
+      "asset_symbols": [
+        "ETH"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
+      "narrative": "defi",
+      "asset_count": 1,
+      "avg_attention_score": 6.023451,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "LINK",
+      "asset_symbols": [
+        "LINK"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
+      "narrative": "layer1",
+      "asset_count": 4,
+      "avg_attention_score": 5.817616,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "ADA",
+      "asset_symbols": [
+        "ADA",
+        "SOL",
+        "XRP",
+        "BNB"
+      ],
+      "regime_mix": [
+        "bearish_attention",
+        "bearish_attention",
+        "bearish_attention",
+        "mixed_attention"
+      ]
+    },
+    {
+      "narrative": "meme_social_beta",
+      "asset_count": 1,
+      "avg_attention_score": 5.480893,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "DOGE",
+      "asset_symbols": [
+        "DOGE"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
     }
   ],
   "architecture": [

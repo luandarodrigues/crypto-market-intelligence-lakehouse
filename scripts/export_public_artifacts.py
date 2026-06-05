@@ -65,6 +65,44 @@ def build_asset_explorer_rows(
     return explorer_rows
 
 
+def build_narrative_explorer_rows(
+    asset_explorer_rows: list[dict],
+    narrative_rows: list[dict],
+) -> list[dict]:
+    assets_by_narrative: dict[str, list[dict]] = {}
+    for row in asset_explorer_rows:
+        assets_by_narrative.setdefault(row["narrative"], []).append(row)
+
+    narrative_row_map = {row["narrative"]: row for row in narrative_rows}
+    explorer_rows: list[dict] = []
+    for narrative in narrative_row_map.keys() | assets_by_narrative.keys():
+        assets = sorted(
+            assets_by_narrative.get(narrative, []),
+            key=lambda row: row["attention_score"],
+            reverse=True,
+        )
+        if not assets:
+            continue
+        narrative_row = narrative_row_map.get(
+            narrative,
+            {
+                "narrative": narrative,
+                "asset_count": len(assets),
+                "avg_attention_score": sum(asset["attention_score"] for asset in assets) / len(assets),
+                "avg_confirmation_score": sum(asset["confirmation_score"] for asset in assets) / len(assets),
+            },
+        )
+        explorer_rows.append(
+            {
+                **narrative_row,
+                "leader_symbol": assets[0]["symbol"],
+                "asset_symbols": [asset["symbol"] for asset in assets],
+                "regime_mix": [asset["regime_tag"] for asset in assets],
+            }
+        )
+    return sorted(explorer_rows, key=lambda row: row["avg_attention_score"], reverse=True)
+
+
 def build_portfolio_summary_rows(attention_rows: list[dict], narrative_rows: list[dict]) -> dict[str, str]:
     asset_lines = [
         "| Symbol | Narrative | Attention | Confirmation | Driver | Regime |",
@@ -146,6 +184,7 @@ def build_site_payload(
         market_feature_rows=market_feature_rows,
         derivatives_feature_rows=derivatives_feature_rows,
     )
+    narrative_explorer_rows = build_narrative_explorer_rows(asset_explorer_rows, narrative_rows)
     asset_count = len(attention_rows)
     narrative_count = len({row["narrative"] for row in attention_rows})
     bullish_count = sum(1 for row in attention_rows if row["regime_tag"] == "bullish_attention")
@@ -168,6 +207,7 @@ def build_site_payload(
         "top_assets": top_assets,
         "top_narratives": top_narratives,
         "asset_explorer_rows": asset_explorer_rows,
+        "narrative_explorer_rows": narrative_explorer_rows,
         "architecture": [
             "Bronze: raw public API snapshots from CoinGecko, Binance, and DefiLlama.",
             "Silver: normalized market, derivatives, and on-chain records.",

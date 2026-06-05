@@ -313,6 +313,108 @@ function buildAssetDetail(row) {
   return wrapper;
 }
 
+function buildComparePanel(selectedRow, compareRow) {
+  const wrapper = document.createElement("div");
+  if (!selectedRow) {
+    wrapper.innerHTML = "<p class=\"asset-meta\">Select an asset to compare.</p>";
+    return wrapper;
+  }
+
+  if (!compareRow || compareRow.symbol === selectedRow.symbol) {
+    wrapper.innerHTML = `
+      <div class="card-header compact">
+        <h3>Asset Comparison</h3>
+        <p>Choose a second asset to compare against the selected one.</p>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  const rows = [
+    ["Attention", formatNumber(selectedRow.attention_score, 2), formatNumber(compareRow.attention_score, 2)],
+    ["RS 7d", formatPercent(selectedRow.relative_strength_7d), formatPercent(compareRow.relative_strength_7d)],
+    ["Volume", formatCompactNumber(selectedRow.quote_volume, 2), formatCompactNumber(compareRow.quote_volume, 2)],
+    ["Regime", formatNarrativeLabel(selectedRow.regime_tag), formatNarrativeLabel(compareRow.regime_tag)],
+  ];
+
+  wrapper.innerHTML = `
+    <div class="card-header compact">
+      <h3>Asset Comparison</h3>
+      <p>${selectedRow.symbol} versus ${compareRow.symbol} across the first exported product signals.</p>
+    </div>
+  `;
+
+  const table = document.createElement("table");
+  table.className = "mini-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>${selectedRow.symbol}</th>
+        <th>${compareRow.symbol}</th>
+      </tr>
+    </thead>
+  `;
+  const tbody = document.createElement("tbody");
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td>`;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  wrapper.appendChild(table);
+  return wrapper;
+}
+
+function buildNarrativePulsePanel(narrativeRow, peerRows) {
+  const wrapper = document.createElement("div");
+  if (!narrativeRow) {
+    wrapper.innerHTML = `
+      <div class="card-header compact">
+        <h3>Narrative Pulse</h3>
+        <p>No narrative aggregation is available for the current selection.</p>
+      </div>
+    `;
+    return wrapper;
+  }
+
+  wrapper.innerHTML = `
+    <div class="card-header compact">
+      <h3>Narrative Pulse</h3>
+      <p>${formatNarrativeLabel(narrativeRow.narrative)} is currently led by ${narrativeRow.leader_symbol} across ${narrativeRow.asset_count} tracked assets.</p>
+    </div>
+    <div class="pulse-metrics">
+      <div class="detail-metric">
+        <span>Avg attention</span>
+        <strong>${formatNumber(narrativeRow.avg_attention_score, 2)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Avg confirmation</span>
+        <strong>${formatNumber(narrativeRow.avg_confirmation_score, 2)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Leader</span>
+        <strong>${narrativeRow.leader_symbol}</strong>
+      </div>
+    </div>
+  `;
+
+  const peers = document.createElement("div");
+  peers.className = "peer-list";
+  peerRows.forEach((row) => {
+    const item = document.createElement("div");
+    item.className = "peer-item";
+    item.innerHTML = `
+      <span class="peer-symbol">${row.symbol}</span>
+      <span>${formatNumber(row.attention_score, 2)}</span>
+      ${buildTag(formatNarrativeLabel(row.regime_tag), regimeTone(row.regime_tag))}
+    `;
+    peers.appendChild(item);
+  });
+  wrapper.appendChild(peers);
+  return wrapper;
+}
+
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
     ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
@@ -342,12 +444,17 @@ function renderExplorer(data) {
     rows: data.asset_explorer_rows.slice(),
     filteredRows: data.asset_explorer_rows.slice(),
     selectedSymbol: data.asset_explorer_rows[0]?.symbol || null,
+    compareSymbol: "none",
   };
 
   const narrativeFilter = document.getElementById("narrative-filter");
+  const sortFilter = document.getElementById("sort-filter");
   const regimeFilter = document.getElementById("regime-filter");
+  const compareFilter = document.getElementById("compare-asset-filter");
   const assetList = document.getElementById("asset-list");
   const assetDetail = document.getElementById("asset-detail");
+  const comparePanel = document.getElementById("compare-panel");
+  const narrativePulse = document.getElementById("narrative-pulse");
 
   const narratives = ["all", ...new Set(data.asset_explorer_rows.map((row) => row.narrative))];
   narratives.forEach((narrative) => {
@@ -355,6 +462,17 @@ function renderExplorer(data) {
     option.value = narrative;
     option.textContent = narrative === "all" ? "All narratives" : formatNarrativeLabel(narrative);
     narrativeFilter.appendChild(option);
+  });
+
+  const compareBase = document.createElement("option");
+  compareBase.value = "none";
+  compareBase.textContent = "No comparison";
+  compareFilter.appendChild(compareBase);
+  data.asset_explorer_rows.forEach((row) => {
+    const option = document.createElement("option");
+    option.value = row.symbol;
+    option.textContent = row.symbol;
+    compareFilter.appendChild(option);
   });
 
   function syncSelection() {
@@ -381,6 +499,17 @@ function renderExplorer(data) {
     assetDetail.innerHTML = "";
     const selected = state.filteredRows.find((row) => row.symbol === state.selectedSymbol);
     assetDetail.appendChild(buildAssetDetail(selected));
+
+    comparePanel.innerHTML = "";
+    const compareRow = state.rows.find((row) => row.symbol === state.compareSymbol);
+    comparePanel.appendChild(buildComparePanel(selected, compareRow));
+
+    narrativePulse.innerHTML = "";
+    const narrativeRow = data.narrative_explorer_rows.find((row) => row.narrative === selected?.narrative);
+    const peerRows = state.rows
+      .filter((row) => row.narrative === selected?.narrative)
+      .sort((left, right) => right.attention_score - left.attention_score);
+    narrativePulse.appendChild(buildNarrativePulsePanel(narrativeRow, peerRows));
   }
 
   function applyFilters() {
@@ -389,13 +518,22 @@ function renderExplorer(data) {
       const regimePass = regimeFilter.value === "all" || row.regime_tag === regimeFilter.value;
       return narrativePass && regimePass;
     });
+    state.filteredRows.sort((left, right) => {
+      const key = sortFilter.value;
+      return (Number(right[key] || 0) - Number(left[key] || 0));
+    });
     syncSelection();
     renderList();
     renderDetail();
   }
 
   narrativeFilter.addEventListener("change", applyFilters);
+  sortFilter.addEventListener("change", applyFilters);
   regimeFilter.addEventListener("change", applyFilters);
+  compareFilter.addEventListener("change", () => {
+    state.compareSymbol = compareFilter.value;
+    renderDetail();
+  });
 
   applyFilters();
 }

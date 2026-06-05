@@ -19,3 +19,6 @@ def test_site_includes_blueprint_and_asset_explorer_hooks():
 
     assert 'id="blueprint-section"' in html
     assert "asset_explorer_rows" in js
+    assert 'id="compare-asset-filter"' in html
+    assert 'id="narrative-pulse"' in html
+    assert "narrative_explorer_rows" in js
