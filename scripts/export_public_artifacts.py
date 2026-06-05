@@ -116,10 +116,10 @@ def build_site_payload(attention_rows: list[dict], narrative_rows: list[dict]) -
             {"name": "Capital Efficiency", "description": "DEX activity relative to TVL, used as an on-chain confirmation signal."},
         ],
         "next_steps": [
-            "Broaden derivatives coverage beyond the current initial symbol set.",
-            "Expand narrative mapping and category coverage.",
-            "Materialize the same flow as Delta-backed Databricks jobs and tables.",
-            "Add richer market concepts such as open-interest momentum and breadth by narrative.",
+            "Expand the live asset universe beyond the current first curated set and widen narrative coverage.",
+            "Replace local development artifacts with Delta-backed Databricks tables and scheduled jobs.",
+            "Add a deeper interactive product layer with richer explorer views, filters, and explanatory panels.",
+            "Introduce stronger market concepts such as open-interest momentum, narrative breadth, and cross-asset rotation.",
         ],
     }
 

@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-04T19:13:12.307845+00:00",
+  "generated_at": "2026-06-05T16:17:22.406467+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
@@ -134,9 +134,9 @@ window.CMIL_SITE_DATA = {
     }
   ],
   "next_steps": [
-    "Broaden derivatives coverage beyond the current initial symbol set.",
-    "Expand narrative mapping and category coverage.",
-    "Materialize the same flow as Delta-backed Databricks jobs and tables.",
-    "Add richer market concepts such as open-interest momentum and breadth by narrative."
+    "Expand the live asset universe beyond the current first curated set and widen narrative coverage.",
+    "Replace local development artifacts with Delta-backed Databricks tables and scheduled jobs.",
+    "Add a deeper interactive product layer with richer explorer views, filters, and explanatory panels.",
+    "Introduce stronger market concepts such as open-interest momentum, narrative breadth, and cross-asset rotation."
   ]
 };

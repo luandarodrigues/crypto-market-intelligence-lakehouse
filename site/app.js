@@ -15,24 +15,55 @@ function formatGeneratedAt(value) {
   })} UTC`;
 }
 
-function buildOverviewCard(label, value) {
-  const article = document.createElement("article");
-  article.className = "overview-card";
-  article.innerHTML = `
-    <span class="overview-label">${label}</span>
-    <span class="overview-value">${value}</span>
-  `;
-  return article;
+function regimeTone(value) {
+  if (value.includes("bullish")) {
+    return "bullish";
+  }
+  if (value.includes("bearish")) {
+    return "bearish";
+  }
+  return "neutral";
 }
 
-function buildHeroStat(label, value) {
-  const article = document.createElement("article");
-  article.className = "hero-stat";
-  article.innerHTML = `
-    <span class="hero-stat-label">${label}</span>
-    <span class="hero-stat-value">${value}</span>
+function buildTag(label, tone = "neutral") {
+  const toneClass = {
+    bullish: "tag-bullish",
+    bearish: "tag-bearish",
+    neutral: "tag-neutral",
+  }[tone] || "tag-neutral";
+  return `<span class="tag ${toneClass}">${label}</span>`;
+}
+
+function buildHeroMetric(label, value, copy) {
+  const item = document.createElement("div");
+  item.className = "hero-metric";
+  item.innerHTML = `
+    <strong>${value}</strong>
+    <span>${label}: ${copy}</span>
   `;
-  return article;
+  return item;
+}
+
+function buildOverviewCard(index, title, body, tone) {
+  const item = document.createElement("article");
+  item.className = `about-card box--${tone}`;
+  item.innerHTML = `
+    <span>${String(index + 1).padStart(2, "0")}</span>
+    <h3>${title}</h3>
+    <p>${body}</p>
+  `;
+  return item;
+}
+
+function buildPipelineNode(label, title, copy, tone) {
+  const item = document.createElement("article");
+  item.className = `pipeline-node box--${tone}`;
+  item.innerHTML = `
+    <p class="mini-label">${label}</p>
+    <strong>${title}</strong>
+    <span>${copy}</span>
+  `;
+  return item;
 }
 
 function buildArchitectureCard(line, index) {
@@ -47,9 +78,9 @@ function buildArchitectureCard(line, index) {
   return item;
 }
 
-function buildSignalCard(signal) {
+function buildSignalCard(signal, tone) {
   const item = document.createElement("article");
-  item.className = "signal-card";
+  item.className = `signal-card box--${tone}`;
   item.innerHTML = `
     <p class="mini-label">Signal Layer</p>
     <h3>${signal.name}</h3>
@@ -58,23 +89,26 @@ function buildSignalCard(signal) {
   return item;
 }
 
-function buildTag(label, tone = "neutral") {
-  const toneClass = {
-    bullish: "tag-bullish",
-    bearish: "tag-bearish",
-    neutral: "tag-neutral",
-  }[tone] || "tag-neutral";
-  return `<span class="tag ${toneClass}">${label}</span>`;
+function buildFeaturedStat(label, value, body) {
+  const item = document.createElement("div");
+  item.className = "featured-stat";
+  item.innerHTML = `
+    <span class="featured-label">${label}</span>
+    <strong>${value}</strong>
+    <p>${body}</p>
+  `;
+  return item;
 }
 
-function regimeTone(value) {
-  if (value.includes("bullish")) {
-    return "bullish";
-  }
-  if (value.includes("bearish")) {
-    return "bearish";
-  }
-  return "neutral";
+function buildBuildDetail(title, body, tone) {
+  const item = document.createElement("article");
+  item.className = `box box--${tone}`;
+  item.innerHTML = `
+    <span class="featured-label">${title}</span>
+    <h3>${title}</h3>
+    <p>${body}</p>
+  `;
+  return item;
 }
 
 function buildAssetTable(rows) {
@@ -131,83 +165,88 @@ function buildNarrativeTable(rows) {
   return table;
 }
 
-function buildHeroTopAsset(row) {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = `
-    <div class="focus-symbol">${row.symbol}</div>
-    <div class="focus-meta">
+function buildAssetItem(row, isActive) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `asset-item${isActive ? " is-active" : ""}`;
+  button.dataset.symbol = row.symbol;
+  button.innerHTML = `
+    <div class="asset-item-top">
+      <span class="asset-symbol">${row.symbol}</span>
       <span class="tag">${formatNarrativeLabel(row.narrative)}</span>
       ${buildTag(formatNarrativeLabel(row.regime_tag), regimeTone(row.regime_tag))}
     </div>
-    <p class="focus-value">
-      Attention score ${formatNumber(row.attention_score, 2)} with ${formatNarrativeLabel(row.top_driver)}
-      as the leading driver.
+    <p class="asset-meta">
+      Attention ${formatNumber(row.attention_score, 2)} · Confirmation ${formatNumber(row.confirmation_score, 2)} ·
+      Driver ${formatNarrativeLabel(row.top_driver)}
     </p>
   `;
-  return wrapper;
+  return button;
 }
 
-function buildNarrativePulse(rows) {
+function buildAssetDetail(row) {
   const wrapper = document.createElement("div");
-  wrapper.className = "pulse-list";
-  const maxScore = Math.max(...rows.map((row) => row.avg_attention_score), 1);
-  rows.slice(0, 3).forEach((row) => {
-    const item = document.createElement("div");
-    item.className = "pulse-row";
-    const width = (row.avg_attention_score / maxScore) * 100;
-    item.innerHTML = `
-      <div class="pulse-copy">
-        <strong>${formatNarrativeLabel(row.narrative)}</strong>
-        <span>${row.asset_count} assets mapped</span>
-      </div>
-      <div class="pulse-track">
-        <span class="pulse-fill" style="width: ${width}%"></span>
-      </div>
-      <span class="pulse-score">${formatNumber(row.avg_attention_score, 2)}</span>
-    `;
-    wrapper.appendChild(item);
-  });
-  return wrapper;
-}
-
-function buildFeaturedInsight(topAsset, topNarrative) {
-  const wrapper = document.createElement("div");
-  if (!topAsset || !topNarrative) {
+  if (!row) {
     wrapper.innerHTML = `
-      <div class="insight-title">Snapshot not available</div>
-      <p class="insight-copy">Run the export pipeline to refresh the site snapshot and insight layer.</p>
+      <div class="detail-copy">
+        <p>Select an asset to inspect its narrative, regime, and current attention context.</p>
+      </div>
     `;
     return wrapper;
   }
 
+  const signalSummary = row.top_driver === "derivatives_positioning"
+    ? "Derivatives positioning is the leading explanatory layer right now."
+    : row.top_driver === "onchain_confirmation"
+      ? "On-chain confirmation is helping justify the current attention profile."
+      : "Volume and market-structure context remain the primary explanation right now.";
+
   wrapper.innerHTML = `
-    <div class="insight-title">
-      ${topAsset.symbol} leads current asset attention while ${formatNarrativeLabel(topNarrative.narrative)}
-      sets the strongest narrative pulse.
+    <div class="detail-hero">
+      <div class="asset-detail-top">
+        <span class="detail-symbol">${row.symbol}</span>
+        <span class="tag">${formatNarrativeLabel(row.narrative)}</span>
+        ${buildTag(formatNarrativeLabel(row.regime_tag), regimeTone(row.regime_tag))}
+      </div>
+      <div class="detail-score-row">
+        <div class="detail-score">Attention ${formatNumber(row.attention_score, 2)}</div>
+        <div class="detail-tag-row">
+          <span class="tag">${formatNarrativeLabel(row.top_driver)}</span>
+        </div>
+      </div>
     </div>
-    <p class="insight-copy">
-      This is the kind of output the platform is designed to produce: a compact view of where attention is
-      clustering, which layer is providing the leading explanation, and whether the broader regime looks more
-      directional or mixed.
-    </p>
+    <div class="detail-grid">
+      <div class="detail-metric">
+        <span>Attention score</span>
+        <strong>${formatNumber(row.attention_score, 3)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Confirmation score</span>
+        <strong>${formatNumber(row.confirmation_score, 4)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Primary driver</span>
+        <strong>${formatNarrativeLabel(row.top_driver)}</strong>
+      </div>
+    </div>
+    <div class="detail-copy">
+      <p>
+        ${row.symbol} currently sits inside the <strong>${formatNarrativeLabel(row.narrative)}</strong> narrative bucket,
+        with a <strong>${formatNarrativeLabel(row.regime_tag)}</strong> regime tag.
+      </p>
+      <p>${signalSummary}</p>
+      <p>
+        This explorer is the first product-style surface built directly on top of the same exported gold layer used by
+        the portfolio page, and acts as a prototype for a deeper platform experience.
+      </p>
+    </div>
   `;
   return wrapper;
 }
 
-function buildPipelineNode(label, title, copy) {
-  const item = document.createElement("article");
-  item.className = "pipeline-node";
-  item.innerHTML = `
-    <p class="mini-label">${label}</p>
-    <strong>${title}</strong>
-    <span>${copy}</span>
-  `;
-  return item;
-}
-
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
-    ".hero, .overview-card, .story-card, .architecture-card, .signal-card, .card, .detail-card, .next-steps li",
+    ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
   );
   if (!("IntersectionObserver" in window)) {
     targets.forEach((item) => item.classList.add("is-visible"));
@@ -223,12 +262,73 @@ function activateRevealAnimations() {
         }
       });
     },
-    {
-      threshold: 0.16,
-    },
+    { threshold: 0.14 },
   );
 
   targets.forEach((item) => observer.observe(item));
+}
+
+function renderExplorer(data) {
+  const state = {
+    rows: data.top_assets.slice(),
+    filteredRows: data.top_assets.slice(),
+    selectedSymbol: data.top_assets[0]?.symbol || null,
+  };
+
+  const narrativeFilter = document.getElementById("narrative-filter");
+  const regimeFilter = document.getElementById("regime-filter");
+  const assetList = document.getElementById("asset-list");
+  const assetDetail = document.getElementById("asset-detail");
+
+  const narratives = ["all", ...new Set(data.top_assets.map((row) => row.narrative))];
+  narratives.forEach((narrative) => {
+    const option = document.createElement("option");
+    option.value = narrative;
+    option.textContent = narrative === "all" ? "All narratives" : formatNarrativeLabel(narrative);
+    narrativeFilter.appendChild(option);
+  });
+
+  function syncSelection() {
+    const exists = state.filteredRows.some((row) => row.symbol === state.selectedSymbol);
+    if (!exists) {
+      state.selectedSymbol = state.filteredRows[0]?.symbol || null;
+    }
+  }
+
+  function renderList() {
+    assetList.innerHTML = "";
+    state.filteredRows.forEach((row) => {
+      const item = buildAssetItem(row, row.symbol === state.selectedSymbol);
+      item.addEventListener("click", () => {
+        state.selectedSymbol = row.symbol;
+        renderList();
+        renderDetail();
+      });
+      assetList.appendChild(item);
+    });
+  }
+
+  function renderDetail() {
+    assetDetail.innerHTML = "";
+    const selected = state.filteredRows.find((row) => row.symbol === state.selectedSymbol);
+    assetDetail.appendChild(buildAssetDetail(selected));
+  }
+
+  function applyFilters() {
+    state.filteredRows = state.rows.filter((row) => {
+      const narrativePass = narrativeFilter.value === "all" || row.narrative === narrativeFilter.value;
+      const regimePass = regimeFilter.value === "all" || row.regime_tag === regimeFilter.value;
+      return narrativePass && regimePass;
+    });
+    syncSelection();
+    renderList();
+    renderDetail();
+  }
+
+  narrativeFilter.addEventListener("change", applyFilters);
+  regimeFilter.addEventListener("change", applyFilters);
+
+  applyFilters();
 }
 
 function renderSite() {
@@ -243,41 +343,55 @@ function renderSite() {
 
   const heroStats = document.getElementById("hero-stats");
   heroStats.append(
-    buildHeroStat("Assets tracked", data.overview.asset_count),
-    buildHeroStat("Narratives mapped", data.overview.narrative_count),
-    buildHeroStat("Bearish regimes", data.overview.bearish_count),
+    buildHeroMetric("Assets tracked", data.overview.asset_count, "curated attention universe"),
+    buildHeroMetric("Narratives mapped", data.overview.narrative_count, "seeded thematic coverage"),
+    buildHeroMetric("Bearish regimes", data.overview.bearish_count, "current gold-layer directional tag"),
   );
 
   const overview = document.getElementById("overview");
-  overview.append(
-    buildOverviewCard("Assets tracked", data.overview.asset_count),
-    buildOverviewCard("Narratives mapped", data.overview.narrative_count),
-    buildOverviewCard("Bullish regimes", data.overview.bullish_count),
-    buildOverviewCard("Mixed regimes", data.overview.mixed_count),
-  );
-
-  const topAsset = data.top_assets[0];
-  const topNarrative = data.top_narratives[0];
-  if (topAsset) {
-    document.getElementById("hero-top-asset").appendChild(buildHeroTopAsset(topAsset));
-  }
-
-  document.getElementById("hero-top-narratives").appendChild(buildNarrativePulse(data.top_narratives));
-  document.getElementById("hero-insight").appendChild(buildFeaturedInsight(topAsset, topNarrative));
+  [
+    ["Market structure", "Spot, derivatives, and on-chain context combined into one interpretable decision layer.", "health"],
+    ["Databricks direction", "Built with medallion architecture logic so the local flow can evolve into jobs and Delta-backed layers.", "models"],
+    ["Product framing", "Designed as a research operating layer, not as another thin crypto dashboard.", "ops"],
+    ["Interactive future", "The embedded asset explorer is the first step toward a fuller live platform experience.", "health"],
+  ].forEach((item, index) => {
+    overview.appendChild(buildOverviewCard(index, item[0], item[1], item[2]));
+  });
 
   const pipelineStrip = document.getElementById("pipeline-strip");
-  pipelineStrip.append(
-    buildPipelineNode("Bronze", "Public source capture", "CoinGecko, Binance, and DefiLlama snapshots preserved with extraction context."),
-    buildPipelineNode("Silver", "Normalized analytical tables", "Market, derivatives, and on-chain records shaped into reusable structures."),
-    buildPipelineNode("Features", "Cross-surface signal layer", "Relative strength, open interest, funding, and capital-efficiency signals prepared for scoring."),
-    buildPipelineNode("Gold", "Attention outputs", "Asset ranking, narrative aggregation, and interpretable drivers exported for public consumption."),
-  );
+  [
+    ["Bronze", "Public source capture", "Raw snapshots from CoinGecko, Binance, and DefiLlama preserved with extraction context.", "health"],
+    ["Silver", "Normalized analytical tables", "Market, derivatives, and on-chain records shaped into cleaner reusable structures.", "ops"],
+    ["Features", "Cross-surface signal layer", "Relative strength, open interest, funding, and capital-efficiency features prepared for scoring.", "models"],
+    ["Gold", "Attention outputs", "Asset ranking, narrative aggregation, and interpretable drivers exported for product surfaces.", "health"],
+  ].forEach((item) => {
+    pipelineStrip.appendChild(buildPipelineNode(item[0], item[1], item[2], item[3]));
+  });
 
   const architecture = document.getElementById("architecture");
   data.architecture.forEach((line, index) => architecture.appendChild(buildArchitectureCard(line, index)));
 
+  const buildStats = document.getElementById("build-stats");
+  buildStats.append(
+    buildFeaturedStat("Pipeline layers", "4", "Bronze, silver, features, and gold shaped for lakehouse evolution."),
+    buildFeaturedStat("Current assets", String(data.overview.asset_count), "Curated asset universe currently exposed in the public gold snapshot."),
+    buildFeaturedStat("Narratives", String(data.overview.narrative_count), "Narrative buckets mapped into the first public analytical surface."),
+    buildFeaturedStat("Explorer mode", "v1", "First embedded product interaction layer built on top of the same exported data."),
+  );
+
+  const buildDetails = document.getElementById("build-details");
+  [
+    ["Databricks framing", "The repository is intentionally structured like a medallion pipeline so that Databricks bundles, jobs, and Delta-backed tables become a natural next step rather than a redesign.", "health"],
+    ["Ingestion layer", "Public source ingestion is separated from normalization, making the project look more like a platform than a notebook workflow.", "ops"],
+    ["Feature layer", "Signals such as relative strength, open interest, funding, and capital efficiency are modeled as reusable analytical components.", "models"],
+    ["Consumption layer", "The static case-study microsite and the embedded asset explorer both consume the same exported gold-layer snapshot, which is a strong product pattern for portfolio storytelling.", "health"],
+  ].forEach((item) => {
+    buildDetails.appendChild(buildBuildDetail(item[0], item[1], item[2]));
+  });
+
   const signals = document.getElementById("signals");
-  data.signals.forEach((signal) => signals.appendChild(buildSignalCard(signal)));
+  const tones = ["health", "models", "ops", "health"];
+  data.signals.forEach((signal, index) => signals.appendChild(buildSignalCard(signal, tones[index % tones.length])));
 
   document.getElementById("top-assets").appendChild(buildAssetTable(data.top_assets));
   document.getElementById("top-narratives").appendChild(buildNarrativeTable(data.top_narratives));
@@ -289,6 +403,7 @@ function renderSite() {
     nextSteps.appendChild(li);
   });
 
+  renderExplorer(data);
   activateRevealAnimations();
 }
 

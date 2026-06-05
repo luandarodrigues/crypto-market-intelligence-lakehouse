@@ -8,122 +8,188 @@
       name="description"
       content="A premium static case-study microsite for a Databricks-oriented crypto market intelligence platform."
     >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <div class="page-shell">
-      <nav class="topbar">
-        <a class="brand" href="#top">
-          <span class="brand-mark"></span>
-          <span class="brand-copy">
-            <strong>CMIL</strong>
-            <span>Crypto Market Intelligence Lakehouse</span>
-          </span>
-        </a>
-        <div class="topnav">
-          <a href="#overview-section">Overview</a>
-          <a href="#architecture-section">Architecture</a>
-          <a href="#signals-section">Signals</a>
-          <a href="#snapshot">Snapshot</a>
-          <a href="#roadmap-section">Roadmap</a>
-        </div>
-      </nav>
+    <div class="frame">
+      <aside class="side-rail">
+        <div class="side-top">
+          <a class="brand" href="#top">
+            <span class="brand-mark"></span>
+            <div class="brand-copy">
+              <strong>Crypto Market Intelligence</strong>
+              <span>Databricks-oriented case study and product prototype</span>
+            </div>
+          </a>
 
-      <header class="hero" id="top">
-        <div class="hero-copy">
-          <p class="eyebrow">Premium Analytics Engineering Case Study</p>
-          <h1 id="hero-title">Crypto Market Intelligence Lakehouse</h1>
-          <p id="hero-subtitle" class="hero-subtitle"></p>
-          <p class="hero-body">
-            This project is designed as a market intelligence product rather than a prediction gimmick.
-            It combines spot, derivatives, and on-chain context into a structured gold layer that surfaces
-            which assets and narratives deserve attention right now.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#snapshot">See Current Snapshot</a>
-            <a class="button button-secondary" href="#architecture-section">Explore Architecture</a>
-          </div>
-        </div>
-
-        <section class="hero-panel">
-          <div class="hero-panel-header">
-            <p class="panel-label">Live Product Framing</p>
-            <p class="panel-note" id="generated-at"></p>
-          </div>
-
-          <div class="hero-stat-grid" id="hero-stats"></div>
-
-          <div class="hero-market-grid">
-            <article class="market-focus-card">
-              <div class="mini-label">Top Asset In Attention</div>
-              <div id="hero-top-asset"></div>
-            </article>
-
-            <article class="market-focus-card">
-              <div class="mini-label">Narrative Pulse</div>
-              <div id="hero-top-narratives"></div>
-            </article>
-          </div>
-
-          <article class="hero-insight-card">
-            <div class="mini-label">Featured Insight</div>
-            <div id="hero-insight"></div>
-          </article>
-        </section>
-      </header>
-
-      <main>
-        <section class="section" id="overview-section">
-          <div class="section-heading section-heading-wide">
-            <p class="eyebrow">Overview</p>
-            <h2>Built like a platform, explained like a product</h2>
+          <div class="side-note">
             <p>
-              The goal is not to build another crypto dashboard. The goal is to prove platform thinking:
-              ingestion, normalization, features, narrative logic, interpretable outputs, and a public-facing
-              layer that still feels coherent to non-technical reviewers.
+              A portfolio project built to show platform thinking across lakehouse design,
+              public-market ingestion, feature engineering, and interpretable market intelligence outputs.
             </p>
           </div>
 
-          <div class="overview-grid" id="overview"></div>
+          <div class="side-viz">
+            <div class="viz-grid"></div>
+            <div class="viz-label">asset / narrative / signal graph</div>
+          </div>
+        </div>
 
-          <div class="overview-story-grid">
-            <article class="story-card">
-              <p class="mini-label">Product Positioning</p>
-              <h3>Closer to a research operating layer than a chart page</h3>
-              <p>
-                The system is designed to help prioritize which assets and narratives deserve investigation,
-                not to pretend that one fragile model can predict price direction in isolation.
-              </p>
-            </article>
-            <article class="story-card">
-              <p class="mini-label">Why It Matters</p>
-              <h3>Crypto signals live across multiple market surfaces</h3>
-              <p>
-                Spot, derivatives, and on-chain behavior often tell different parts of the same story.
-                This project organizes them into a cleaner analytical layer with explicit drivers and regime tags.
-              </p>
-            </article>
+        <div class="side-links">
+          <a href="#overview-section">Overview <span>&nearr;</span></a>
+          <a href="#build-section">Build <span>&nearr;</span></a>
+          <a href="#explorer-section">Asset Explorer <span>&nearr;</span></a>
+          <a href="#roadmap-section">Roadmap <span>&nearr;</span></a>
+        </div>
+      </aside>
+
+      <main class="main">
+        <nav class="topnav">
+          <a href="#overview-section">Overview</a>
+          <a href="#architecture-section">Architecture</a>
+          <a href="#signals-section">Signals</a>
+          <a href="#explorer-section">Asset Explorer</a>
+          <a href="#roadmap-section">Roadmap</a>
+        </nav>
+
+        <section class="hero" id="top">
+          <div>
+            <p class="eyebrow reveal">Databricks / Crypto Research / Asset Attention</p>
+            <h1 class="reveal" id="hero-title">Crypto Market Intelligence Lakehouse</h1>
+            <div class="split reveal">
+              <p id="hero-subtitle"></p>
+              <div class="hero-metrics" id="hero-stats"></div>
+            </div>
           </div>
         </section>
 
-        <section class="section" id="architecture-section">
-          <div class="section-heading">
-            <p class="eyebrow">Architecture</p>
-            <h2>Bronze to gold, shaped for Databricks evolution</h2>
+        <section class="about section" id="overview-section">
+          <div class="about-shell reveal">
+            <div class="about-head">
+              <div class="about-title">
+                <p class="eyebrow">Overview / Positioning</p>
+                <h2>Built as a market intelligence <span class="section-accent">system.</span></h2>
+              </div>
+              <div class="about-text">
+                <p>
+                  This project is not framed as a trading bot and not as a toy forecasting demo. It is a product
+                  for spotting which crypto assets and narratives deserve attention, while keeping the build path
+                  legible from ingestion to final output.
+                </p>
+                <p>
+                  The goal is to show how modern analytics engineering, Databricks-style architecture, and market
+                  reasoning can live inside the same system.
+                </p>
+              </div>
+            </div>
+
+            <div class="about-cards" id="overview"></div>
           </div>
-          <div class="pipeline-strip" id="pipeline-strip"></div>
+        </section>
+
+        <section class="cloud-section" id="architecture-section">
+          <div class="cloud-pin">
+            <div class="cloud-copy">
+              <p class="eyebrow">Architecture / Databricks Shape</p>
+              <h2>From raw public feeds to gold attention outputs.</h2>
+              <p>
+                The pipeline follows a medallion logic shaped for Databricks evolution: raw snapshots, normalized
+                analytical tables, reusable feature families, and a gold layer built for asset and narrative attention.
+              </p>
+            </div>
+            <div class="cloud-stage">
+              <div class="pipeline-strip" id="pipeline-strip"></div>
+            </div>
+          </div>
+
           <div id="architecture" class="architecture-grid"></div>
         </section>
 
-        <section class="section" id="signals-section">
-          <div class="section-heading">
+        <section class="featured section" id="build-section">
+          <div class="featured-shell reveal">
+            <p class="eyebrow">Build / Databricks / Platform Story</p>
+            <div class="featured-head">
+              <div class="featured-intro">
+                <h2>How the system was constructed around a lakehouse mindset.</h2>
+              </div>
+              <div class="featured-copy">
+                <p class="featured-question">
+                  The interesting part is not just the score. The interesting part is the path from heterogeneous
+                  market signals to a clean analytical product layer.
+                </p>
+                <p>
+                  This implementation uses local JSONL development artifacts today, but the structure is intentionally
+                  shaped to migrate into Databricks jobs, Delta-backed medallion layers, and more institutional-quality
+                  orchestration over time.
+                </p>
+                <div class="featured-stats" id="build-stats"></div>
+              </div>
+            </div>
+
+            <div class="featured-detail is-open">
+              <div class="featured-grid" id="build-details"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tabs section" id="signals-section">
+          <div class="title">
             <p class="eyebrow">Signals</p>
-            <h2>Current concepts used in the scoring layer</h2>
+            <h2>Cross-market concepts translated into readable <span class="section-accent">signal families.</span></h2>
           </div>
           <div id="signals" class="signal-grid"></div>
         </section>
 
-        <section class="section" id="snapshot">
+        <section class="explorer section" id="explorer-section">
+          <div class="section-heading explorer-heading">
+            <div>
+              <p class="eyebrow">Asset Explorer</p>
+              <h2>Explore the current gold layer like a product surface.</h2>
+            </div>
+            <p class="snapshot-summary" id="generated-at"></p>
+          </div>
+
+          <div class="explorer-shell reveal">
+            <div class="explorer-toolbar">
+              <div class="field">
+                <label for="narrative-filter">Narrative</label>
+                <select id="narrative-filter"></select>
+              </div>
+              <div class="field">
+                <label for="regime-filter">Regime</label>
+                <select id="regime-filter">
+                  <option value="all">All regimes</option>
+                  <option value="bullish_attention">Bullish attention</option>
+                  <option value="bearish_attention">Bearish attention</option>
+                  <option value="mixed_attention">Mixed attention</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="explorer-grid">
+              <article class="explorer-list-card">
+                <div class="card-header">
+                  <h3>Asset List</h3>
+                  <p>Filtered directly from the current exported gold layer.</p>
+                </div>
+                <div id="asset-list" class="asset-list"></div>
+              </article>
+
+              <article class="explorer-detail-card">
+                <div class="card-header">
+                  <h3>Selected Asset</h3>
+                  <p>A lightweight product view built on top of the same project outputs.</p>
+                </div>
+                <div id="asset-detail" class="asset-detail"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="snapshot section" id="snapshot">
           <div class="section-heading section-heading-split">
             <div>
               <p class="eyebrow">Snapshot</p>
@@ -136,14 +202,14 @@
           </div>
 
           <div class="snapshot-grid">
-            <article class="card card-emphasis">
+            <article class="card card--health">
               <div class="card-header">
                 <h3>Top Assets</h3>
                 <p>Latest attention-ranked assets from the current exported gold layer.</p>
               </div>
               <div id="top-assets" class="table-shell"></div>
             </article>
-            <article class="card card-secondary">
+            <article class="card card--ops">
               <div class="card-header">
                 <h3>Top Narratives</h3>
                 <p>Aggregated attention by narrative grouping.</p>
@@ -153,34 +219,10 @@
           </div>
         </section>
 
-        <section class="section">
-          <div class="section-heading">
-            <p class="eyebrow">Build Details</p>
-            <h2>What this demonstrates technically</h2>
-          </div>
-          <div class="detail-grid">
-            <article class="detail-card">
-              <p class="mini-label">Engineering</p>
-              <h3>From ingestion to exportable public artifacts</h3>
-              <p>Source ingestion, normalization, feature computation, gold outputs, and a reproducible presentation layer.</p>
-            </article>
-            <article class="detail-card">
-              <p class="mini-label">Analytics</p>
-              <h3>Signals grounded in current market structure concepts</h3>
-              <p>Relative strength, funding, open interest, capital efficiency, confirmation logic, and regime tagging.</p>
-            </article>
-            <article class="detail-card">
-              <p class="mini-label">Platform Direction</p>
-              <h3>Local development now, lakehouse evolution next</h3>
-              <p>Today the pipeline runs locally with JSONL development artifacts; the intended trajectory is Databricks jobs and Delta-backed medallion layers.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="roadmap-section">
-          <div class="section-heading">
-            <p class="eyebrow">Roadmap</p>
-            <h2>How this becomes more institutional over time</h2>
+        <section class="tabs section" id="roadmap-section">
+          <div class="title">
+            <p class="eyebrow">Platform Roadmap</p>
+            <h2>What comes next as this grows from case study into a more complete <span class="section-accent">platform.</span></h2>
           </div>
           <ul id="next-steps" class="next-steps"></ul>
         </section>
