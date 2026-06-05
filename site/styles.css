@@ -297,6 +297,7 @@ p {
 .about-cards,
 .architecture-grid,
 .signal-grid,
+.blueprint-grid,
 .snapshot-grid,
 .featured-grid,
 .explorer-grid {
@@ -523,7 +524,8 @@ p {
   margin-bottom: 18px;
 }
 
-.signal-grid {
+.signal-grid,
+.blueprint-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -803,7 +805,8 @@ td {
   }
 
   .hero-metrics,
-  .signal-grid {
+  .signal-grid,
+  .blueprint-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -823,7 +826,8 @@ td {
   }
 
   .hero-metrics,
-  .signal-grid {
+  .signal-grid,
+  .blueprint-grid {
     grid-template-columns: 1fr;
   }
 

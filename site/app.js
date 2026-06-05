@@ -6,6 +6,30 @@ function formatNumber(value, digits) {
   return Number(value).toFixed(digits);
 }
 
+function formatCompactNumber(value, digits = 1) {
+  if (value === null || value === undefined) {
+    return "N/A";
+  }
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: digits,
+  }).format(Number(value));
+}
+
+function formatPercent(value, digits = 2) {
+  if (value === null || value === undefined) {
+    return "N/A";
+  }
+  return `${Number(value).toFixed(digits)}%`;
+}
+
+function formatDecimal(value, digits = 4) {
+  if (value === null || value === undefined) {
+    return "N/A";
+  }
+  return Number(value).toFixed(digits);
+}
+
 function formatGeneratedAt(value) {
   const date = new Date(value);
   return `Snapshot generated ${date.toLocaleString("en-US", {
@@ -87,6 +111,17 @@ function buildSignalCard(signal, tone) {
     <p>${signal.description}</p>
   `;
   return item;
+}
+
+function buildBlueprintCard(item, tone) {
+  const card = document.createElement("article");
+  card.className = `signal-card box--${tone}`;
+  card.innerHTML = `
+    <p class="mini-label">${item.artifact}</p>
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
+  `;
+  return card;
 }
 
 function buildFeaturedStat(label, value, body) {
@@ -177,7 +212,7 @@ function buildAssetItem(row, isActive) {
       ${buildTag(formatNarrativeLabel(row.regime_tag), regimeTone(row.regime_tag))}
     </div>
     <p class="asset-meta">
-      Attention ${formatNumber(row.attention_score, 2)} · Confirmation ${formatNumber(row.confirmation_score, 2)} ·
+      Attention ${formatNumber(row.attention_score, 2)} / Confirmation ${formatNumber(row.confirmation_score, 2)} /
       Driver ${formatNarrativeLabel(row.top_driver)}
     </p>
   `;
@@ -200,6 +235,14 @@ function buildAssetDetail(row) {
     : row.top_driver === "onchain_confirmation"
       ? "On-chain confirmation is helping justify the current attention profile."
       : "Volume and market-structure context remain the primary explanation right now.";
+
+  const marketSummary = row.relative_strength_7d === null || row.relative_strength_7d === undefined
+    ? "Cross-sectional market features are not yet available for this asset in the exported snapshot."
+    : `${row.symbol} is showing ${formatPercent(row.relative_strength_7d)} relative strength over the recent 7-day window, with ${formatCompactNumber(row.quote_volume)} in quote volume.`;
+
+  const derivativesSummary = row.open_interest
+    ? `Current derivatives context includes ${formatCompactNumber(row.open_interest, 2)} open interest and ${formatDecimal(row.funding_rate, 6)} funding.`
+    : "Derivatives detail is currently sparse for this asset, which makes the explorer useful for highlighting where coverage still needs to deepen.";
 
   wrapper.innerHTML = `
     <div class="detail-hero">
@@ -228,6 +271,30 @@ function buildAssetDetail(row) {
         <span>Primary driver</span>
         <strong>${formatNarrativeLabel(row.top_driver)}</strong>
       </div>
+      <div class="detail-metric">
+        <span>Price</span>
+        <strong>${row.close_price ? `$${formatCompactNumber(row.close_price, 2)}` : "N/A"}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Quote volume</span>
+        <strong>${formatCompactNumber(row.quote_volume, 2)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>RS 7d</span>
+        <strong>${formatPercent(row.relative_strength_7d)}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Breadth</span>
+        <strong>${row.breadth_flag ? formatNarrativeLabel(row.breadth_flag) : "N/A"}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Crowding</span>
+        <strong>${row.crowding_flag === null || row.crowding_flag === undefined ? "N/A" : row.crowding_flag ? "Elevated" : "Contained"}</strong>
+      </div>
+      <div class="detail-metric">
+        <span>Open interest</span>
+        <strong>${formatCompactNumber(row.open_interest, 2)}</strong>
+      </div>
     </div>
     <div class="detail-copy">
       <p>
@@ -235,6 +302,8 @@ function buildAssetDetail(row) {
         with a <strong>${formatNarrativeLabel(row.regime_tag)}</strong> regime tag.
       </p>
       <p>${signalSummary}</p>
+      <p>${marketSummary}</p>
+      <p>${derivativesSummary}</p>
       <p>
         This explorer is the first product-style surface built directly on top of the same exported gold layer used by
         the portfolio page, and acts as a prototype for a deeper platform experience.
@@ -270,9 +339,9 @@ function activateRevealAnimations() {
 
 function renderExplorer(data) {
   const state = {
-    rows: data.top_assets.slice(),
-    filteredRows: data.top_assets.slice(),
-    selectedSymbol: data.top_assets[0]?.symbol || null,
+    rows: data.asset_explorer_rows.slice(),
+    filteredRows: data.asset_explorer_rows.slice(),
+    selectedSymbol: data.asset_explorer_rows[0]?.symbol || null,
   };
 
   const narrativeFilter = document.getElementById("narrative-filter");
@@ -280,7 +349,7 @@ function renderExplorer(data) {
   const assetList = document.getElementById("asset-list");
   const assetDetail = document.getElementById("asset-detail");
 
-  const narratives = ["all", ...new Set(data.top_assets.map((row) => row.narrative))];
+  const narratives = ["all", ...new Set(data.asset_explorer_rows.map((row) => row.narrative))];
   narratives.forEach((narrative) => {
     const option = document.createElement("option");
     option.value = narrative;
@@ -381,10 +450,10 @@ function renderSite() {
 
   const buildDetails = document.getElementById("build-details");
   [
-    ["Databricks framing", "The repository is intentionally structured like a medallion pipeline so that Databricks bundles, jobs, and Delta-backed tables become a natural next step rather than a redesign.", "health"],
-    ["Ingestion layer", "Public source ingestion is separated from normalization, making the project look more like a platform than a notebook workflow.", "ops"],
-    ["Feature layer", "Signals such as relative strength, open interest, funding, and capital efficiency are modeled as reusable analytical components.", "models"],
-    ["Consumption layer", "The static case-study microsite and the embedded asset explorer both consume the same exported gold-layer snapshot, which is a strong product pattern for portfolio storytelling.", "health"],
+    ["Bundle-first deployment path", "The repo carries a Databricks bundle scaffold so workspace deployment becomes an extension of the same codebase instead of a separate manual setup step.", "health"],
+    ["Pipeline orchestration path", "The bronze, silver, features, and gold stages are already separated as runnable scripts, which maps cleanly into Databricks Jobs or Lakeflow-style orchestration later.", "ops"],
+    ["Feature layer design", "Signals such as relative strength, open interest, funding, and capital efficiency are modeled as reusable analytical components rather than one-off dashboard calculations.", "models"],
+    ["App construction path", "The static case-study page and the embedded asset explorer share one exported site payload, which is the right product boundary for evolving toward a richer interactive application.", "health"],
   ].forEach((item) => {
     buildDetails.appendChild(buildBuildDetail(item[0], item[1], item[2]));
   });
@@ -392,6 +461,11 @@ function renderSite() {
   const signals = document.getElementById("signals");
   const tones = ["health", "models", "ops", "health"];
   data.signals.forEach((signal, index) => signals.appendChild(buildSignalCard(signal, tones[index % tones.length])));
+
+  const blueprintGrid = document.getElementById("blueprint-grid");
+  data.databricks_blueprint.forEach((item, index) => {
+    blueprintGrid.appendChild(buildBlueprintCard(item, tones[index % tones.length]));
+  });
 
   document.getElementById("top-assets").appendChild(buildAssetTable(data.top_assets));
   document.getElementById("top-narratives").appendChild(buildNarrativeTable(data.top_narratives));

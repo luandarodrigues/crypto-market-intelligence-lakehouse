@@ -41,6 +41,7 @@
         <div class="side-links">
           <a href="#overview-section">Overview <span>&nearr;</span></a>
           <a href="#build-section">Build <span>&nearr;</span></a>
+          <a href="#blueprint-section">Blueprint <span>&nearr;</span></a>
           <a href="#explorer-section">Asset Explorer <span>&nearr;</span></a>
           <a href="#roadmap-section">Roadmap <span>&nearr;</span></a>
         </div>
@@ -50,6 +51,7 @@
         <nav class="topnav">
           <a href="#overview-section">Overview</a>
           <a href="#architecture-section">Architecture</a>
+          <a href="#blueprint-section">Blueprint</a>
           <a href="#signals-section">Signals</a>
           <a href="#explorer-section">Asset Explorer</a>
           <a href="#roadmap-section">Roadmap</a>
@@ -143,6 +145,14 @@
           <div id="signals" class="signal-grid"></div>
         </section>
 
+        <section class="tabs section" id="blueprint-section">
+          <div class="title">
+            <p class="eyebrow">Databricks Blueprint</p>
+            <h2>The repo already carries the first deployment-facing <span class="section-accent">Databricks path.</span></h2>
+          </div>
+          <div id="blueprint-grid" class="blueprint-grid"></div>
+        </section>
+
         <section class="explorer section" id="explorer-section">
           <div class="section-heading explorer-heading">
             <div>
@@ -173,7 +183,7 @@
               <article class="explorer-list-card">
                 <div class="card-header">
                   <h3>Asset List</h3>
-                  <p>Filtered directly from the current exported gold layer.</p>
+                  <p>Built from the gold attention output and enriched with market and derivatives context.</p>
                 </div>
                 <div id="asset-list" class="asset-list"></div>
               </article>
@@ -181,7 +191,7 @@
               <article class="explorer-detail-card">
                 <div class="card-header">
                   <h3>Selected Asset</h3>
-                  <p>A lightweight product view built on top of the same project outputs.</p>
+                  <p>A first product surface on top of the exported pipeline data, designed as a base for a fuller interactive app.</p>
                 </div>
                 <div id="asset-detail" class="asset-detail"></div>
               </article>

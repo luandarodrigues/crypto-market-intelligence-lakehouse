@@ -13,6 +13,58 @@ from src.bronze.writers import read_jsonl_rows, write_jsonl_rows
 from src.publish.export_gold import build_public_attention_record
 
 
+def build_latest_symbol_map(rows: list[dict], *, symbol_key: str = "symbol") -> dict[str, dict]:
+    latest_rows: dict[str, dict] = {}
+    for row in rows:
+        symbol = row.get(symbol_key)
+        if symbol:
+            latest_rows[symbol] = row
+    return latest_rows
+
+
+def normalize_derivatives_symbol(value: str) -> str:
+    for suffix in ("USDT", "USDC", "BUSD", "USD"):
+        if value.endswith(suffix):
+            return value[: -len(suffix)]
+    return value
+
+
+def build_asset_explorer_rows(
+    attention_rows: list[dict],
+    driver_rows: list[dict] | None = None,
+    market_feature_rows: list[dict] | None = None,
+    derivatives_feature_rows: list[dict] | None = None,
+) -> list[dict]:
+    driver_map = build_latest_symbol_map(driver_rows or [])
+    market_map = build_latest_symbol_map(market_feature_rows or [])
+    derivatives_map = {
+        normalize_derivatives_symbol(symbol): row
+        for symbol, row in build_latest_symbol_map(derivatives_feature_rows or []).items()
+    }
+
+    explorer_rows: list[dict] = []
+    for row in attention_rows:
+        symbol = row["symbol"]
+        driver = driver_map.get(symbol, {})
+        market = market_map.get(symbol, {})
+        derivatives = derivatives_map.get(symbol, {})
+        explorer_rows.append(
+            {
+                **row,
+                "close_price": market.get("close_price"),
+                "quote_volume": market.get("quote_volume"),
+                "relative_strength_24h": market.get("relative_strength_24h"),
+                "relative_strength_7d": market.get("relative_strength_7d"),
+                "relative_strength_30d": market.get("relative_strength_30d"),
+                "breadth_flag": driver.get("breadth_flag"),
+                "crowding_flag": driver.get("crowding_flag"),
+                "funding_rate": derivatives.get("funding_rate"),
+                "open_interest": derivatives.get("open_interest"),
+            }
+        )
+    return explorer_rows
+
+
 def build_portfolio_summary_rows(attention_rows: list[dict], narrative_rows: list[dict]) -> dict[str, str]:
     asset_lines = [
         "| Symbol | Narrative | Attention | Confirmation | Driver | Regime |",
@@ -79,9 +131,21 @@ def build_portfolio_report(attention_rows: list[dict], narrative_rows: list[dict
     )
 
 
-def build_site_payload(attention_rows: list[dict], narrative_rows: list[dict]) -> dict:
+def build_site_payload(
+    attention_rows: list[dict],
+    narrative_rows: list[dict],
+    driver_rows: list[dict] | None = None,
+    market_feature_rows: list[dict] | None = None,
+    derivatives_feature_rows: list[dict] | None = None,
+) -> dict:
     top_assets = attention_rows[:8]
     top_narratives = narrative_rows[:6]
+    asset_explorer_rows = build_asset_explorer_rows(
+        attention_rows=attention_rows[:12],
+        driver_rows=driver_rows,
+        market_feature_rows=market_feature_rows,
+        derivatives_feature_rows=derivatives_feature_rows,
+    )
     asset_count = len(attention_rows)
     narrative_count = len({row["narrative"] for row in attention_rows})
     bullish_count = sum(1 for row in attention_rows if row["regime_tag"] == "bullish_attention")
@@ -103,11 +167,29 @@ def build_site_payload(attention_rows: list[dict], narrative_rows: list[dict]) -
         },
         "top_assets": top_assets,
         "top_narratives": top_narratives,
+        "asset_explorer_rows": asset_explorer_rows,
         "architecture": [
             "Bronze: raw public API snapshots from CoinGecko, Binance, and DefiLlama.",
             "Silver: normalized market, derivatives, and on-chain records.",
             "Features: relative strength, volume context, open interest, funding, and capital efficiency.",
             "Gold: asset attention, driver flags, and narrative aggregation.",
+        ],
+        "databricks_blueprint": [
+            {
+                "title": "Asset Bundles scaffold",
+                "artifact": "databricks.yml",
+                "description": "The repo already carries a Databricks bundle entrypoint so deployment can evolve from local scripts into a reproducible workspace asset model.",
+            },
+            {
+                "title": "Job definition path",
+                "artifact": "resources/jobs/pipeline_job.yml",
+                "description": "The project has a dedicated job resource placeholder for orchestrating the bronze to gold pipeline as a scheduled Databricks workload.",
+            },
+            {
+                "title": "Lakehouse pipeline resource",
+                "artifact": "resources/pipelines/lakehouse_pipeline.yml",
+                "description": "Pipeline resources are separated from app presentation so Delta-backed medallion layers can later replace the current local JSONL artifacts cleanly.",
+            },
         ],
         "signals": [
             {"name": "Relative Strength", "description": "Short-horizon price context for spotting assets already moving with intent."},
@@ -130,8 +212,12 @@ def build_site_data_script(payload: dict) -> str:
 
 def main() -> None:
     gold_root = PROJECT_ROOT / "artifacts" / "gold"
+    features_root = PROJECT_ROOT / "artifacts" / "features"
     attention_rows = read_jsonl_rows(gold_root / "attention.jsonl")
+    driver_rows = read_jsonl_rows(gold_root / "drivers.jsonl")
     narrative_rows = read_jsonl_rows(gold_root / "narratives.jsonl")
+    market_feature_rows = read_jsonl_rows(features_root / "market_features.jsonl")
+    derivatives_feature_rows = read_jsonl_rows(features_root / "derivatives_features.jsonl")
 
     public_rows = [
         build_public_attention_record(
@@ -156,7 +242,15 @@ def main() -> None:
     site_root.mkdir(parents=True, exist_ok=True)
     site_data_path = site_root / "site_data.js"
     site_data_path.write_text(
-        build_site_data_script(build_site_payload(attention_rows, narrative_rows)),
+        build_site_data_script(
+            build_site_payload(
+                attention_rows,
+                narrative_rows,
+                driver_rows=driver_rows,
+                market_feature_rows=market_feature_rows,
+                derivatives_feature_rows=derivatives_feature_rows,
+            )
+        ),
         encoding="utf-8",
     )
     print(f"public artifacts exported to {outputs_root}")

@@ -29,12 +29,57 @@ def test_build_site_payload_summarizes_attention_and_regimes():
                 "avg_confirmation_score": 0.6667,
             }
         ],
+        driver_rows=[
+            {
+                "symbol": "BTC",
+                "crowding_flag": False,
+                "breadth_flag": "broad",
+                "regime_tag": "bearish_attention",
+            },
+            {
+                "symbol": "SOL",
+                "crowding_flag": True,
+                "breadth_flag": "narrow",
+                "regime_tag": "mixed_attention",
+            },
+        ],
+        market_feature_rows=[
+            {
+                "symbol": "BTC",
+                "close_price": 67432,
+                "quote_volume": 59318066245,
+                "relative_strength_24h": -5.6506,
+                "relative_strength_7d": -11.7803,
+                "relative_strength_30d": -14.2869,
+            },
+            {
+                "symbol": "SOL",
+                "close_price": 76.8,
+                "quote_volume": 3174308631,
+                "relative_strength_24h": -4.7793,
+                "relative_strength_7d": -8.682,
+                "relative_strength_30d": -8.7717,
+            },
+        ],
+        derivatives_feature_rows=[
+            {
+                "symbol": "BTCUSDT",
+                "funding_rate": 8.345e-05,
+                "open_interest": 110567.575,
+            }
+        ],
     )
     assert payload["overview"]["asset_count"] == 2
     assert payload["overview"]["narrative_count"] == 2
     assert payload["overview"]["bearish_count"] == 1
     assert payload["overview"]["mixed_count"] == 1
     assert payload["top_assets"][0]["symbol"] == "BTC"
+    assert payload["asset_explorer_rows"][0]["symbol"] == "BTC"
+    assert payload["asset_explorer_rows"][0]["breadth_flag"] == "broad"
+    assert payload["asset_explorer_rows"][0]["funding_rate"] == 8.345e-05
+    assert payload["asset_explorer_rows"][1]["crowding_flag"] is True
+    assert payload["asset_explorer_rows"][1]["funding_rate"] is None
+    assert payload["databricks_blueprint"][0]["title"] == "Asset Bundles scaffold"
 
 
 def test_build_site_data_script_creates_browser_global():
