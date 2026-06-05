@@ -1,0 +1,14 @@
+[project]
+name = "crypto-market-intelligence-lakehouse"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "pyspark>=3.5",
+  "requests>=2.32",
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "pytest>=8.2",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -1,0 +1,4 @@
+resources:
+  jobs:
+    crypto_market_pipeline:
+      name: crypto-market-pipeline

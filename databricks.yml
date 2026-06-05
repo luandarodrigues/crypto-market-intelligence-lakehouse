@@ -1,0 +1,7 @@
+bundle:
+  name: crypto-market-intelligence-lakehouse
+
+targets:
+  dev:
+    mode: development
+    default: true

@@ -1,0 +1,4 @@
+resources:
+  pipelines:
+    crypto_market_lakehouse:
+      name: crypto-market-lakehouse
