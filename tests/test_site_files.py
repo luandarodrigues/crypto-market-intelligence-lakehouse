@@ -33,3 +33,7 @@ def test_site_includes_blueprint_and_asset_explorer_hooks():
     assert 'id="app-signal-strip"' in app_html
     assert 'id="app-insight-grid"' in app_html
     assert "renderAppInsights" in js
+    assert 'id="app-leaderboard"' in app_html
+    assert 'id="app-rotation-board"' in app_html
+    assert 'id="app-alerts"' in app_html
+    assert "renderAppCommandCenter" in js

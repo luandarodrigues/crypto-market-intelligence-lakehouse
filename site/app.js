@@ -157,6 +157,36 @@ function buildAppInsightCard(label, title, body, tone) {
   return item;
 }
 
+function buildAppMiniItem(title, value, body, tags = []) {
+  const item = document.createElement("article");
+  item.className = "app-mini-item";
+  const tagRow = tags.length
+    ? `<div class="asset-item-top">${tags.join("")}</div>`
+    : "";
+  item.innerHTML = `
+    <div class="app-mini-row">
+      <strong>${title}</strong>
+      <span class="app-mini-label">${value}</span>
+    </div>
+    <p>${body}</p>
+    ${tagRow}
+  `;
+  return item;
+}
+
+function buildAlertItem(title, body, tone = "neutral") {
+  const item = document.createElement("article");
+  item.className = "app-alert-item";
+  item.innerHTML = `
+    <div class="asset-item-top">
+      <strong>${title}</strong>
+      ${buildTag(tone === "neutral" ? "watch" : tone, tone)}
+    </div>
+    <p>${body}</p>
+  `;
+  return item;
+}
+
 function buildBuildDetail(title, body, tone) {
   const item = document.createElement("article");
   item.className = `box box--${tone}`;
@@ -565,6 +595,71 @@ function renderAppInsights(data) {
   );
 }
 
+function renderAppCommandCenter(data) {
+  const leaderboard = document.getElementById("app-leaderboard");
+  const rotationBoard = document.getElementById("app-rotation-board");
+  const alerts = document.getElementById("app-alerts");
+  if (!leaderboard || !rotationBoard || !alerts) {
+    return;
+  }
+
+  data.top_assets.slice(0, 5).forEach((row) => {
+    leaderboard.appendChild(
+      buildAppMiniItem(
+        row.symbol,
+        `Attn ${formatNumber(row.attention_score, 2)}`,
+        `${formatNarrativeLabel(row.narrative)} / ${formatNarrativeLabel(row.top_driver)}`,
+        [
+          buildTag(formatNarrativeLabel(row.regime_tag), regimeTone(row.regime_tag)),
+          `<span class="tag">${formatNarrativeLabel(row.narrative)}</span>`,
+        ],
+      ),
+    );
+  });
+
+  data.narrative_explorer_rows.slice(0, 4).forEach((row) => {
+    rotationBoard.appendChild(
+      buildAppMiniItem(
+        formatNarrativeLabel(row.narrative),
+        `Leader ${row.leader_symbol}`,
+        `${row.asset_count} assets / Avg attention ${formatNumber(row.avg_attention_score, 2)}`,
+        row.asset_symbols.slice(0, 4).map((symbol) => `<span class="tag">${symbol}</span>`),
+      ),
+    );
+  });
+
+  const topAsset = data.top_assets[0];
+  if (topAsset) {
+    alerts.appendChild(
+      buildAlertItem(
+        `${topAsset.symbol} is the primary attention leader`,
+        `${topAsset.symbol} currently leads the exported universe with ${formatNumber(topAsset.attention_score, 2)} attention and ${formatNarrativeLabel(topAsset.top_driver)} as the main driver.`,
+        regimeTone(topAsset.regime_tag),
+      ),
+    );
+  }
+  const mixedAsset = data.top_assets.find((row) => row.regime_tag === "mixed_attention");
+  if (mixedAsset) {
+    alerts.appendChild(
+      buildAlertItem(
+        `${mixedAsset.symbol} is in a mixed regime`,
+        `${mixedAsset.symbol} stands out because its attention is notable while the regime remains mixed, which makes it useful for monitoring rather than clean conviction.`,
+        "neutral",
+      ),
+    );
+  }
+  const topNarrative = data.narrative_explorer_rows[0];
+  if (topNarrative) {
+    alerts.appendChild(
+      buildAlertItem(
+        `${formatNarrativeLabel(topNarrative.narrative)} is leading cluster rotation`,
+        `${formatNarrativeLabel(topNarrative.narrative)} currently ranks first by average attention and is being carried by ${topNarrative.leader_symbol}.`,
+        "bullish",
+      ),
+    );
+  }
+}
+
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
     ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
@@ -849,6 +944,7 @@ function renderAppPage() {
   );
 
   renderAppInsights(data);
+  renderAppCommandCenter(data);
   renderExplorer(data);
 }
 
