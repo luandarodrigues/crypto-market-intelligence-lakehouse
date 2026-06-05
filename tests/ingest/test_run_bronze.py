@@ -1,3 +1,5 @@
+import requests
+
 from src.ingest.binance import BinanceClient
 from src.ingest.coingecko import CoinGeckoClient
 from src.ingest.defillama import DefiLlamaClient
@@ -42,3 +44,57 @@ def test_collect_public_bronze_rows_returns_four_source_rows():
     assert rows[1]["source_name"] == "binance"
     assert rows[2]["endpoint_name"] == "funding_rate"
     assert rows[3]["source_name"] == "defillama"
+
+
+class FailingBinanceClient:
+    def fetch_open_interest(self, symbol: str) -> dict:
+        raise requests.HTTPError("451 Client Error")
+
+    def fetch_funding_rate(self, symbol: str, limit: int = 1) -> list[dict]:
+        raise requests.HTTPError("451 Client Error")
+
+
+class PartialBinanceClient:
+    def fetch_open_interest(self, symbol: str) -> dict:
+        return {"symbol": "BTCUSDT", "openInterest": "123.45"}
+
+    def fetch_funding_rate(self, symbol: str, limit: int = 1) -> list[dict]:
+        raise requests.HTTPError("451 Client Error")
+
+
+def test_collect_public_bronze_rows_continues_when_binance_is_unavailable():
+    coingecko = CoinGeckoClient(
+        base_url="https://api.coingecko.com/api/v3",
+        session=FakeSession([{"id": "bitcoin", "symbol": "btc"}]),
+    )
+    defillama = DefiLlamaClient(
+        base_url="https://api.llama.fi",
+        session=FakeSession([{"name": "Aave"}]),
+    )
+
+    rows = collect_public_bronze_rows(
+        coingecko=coingecko,
+        binance=FailingBinanceClient(),
+        defillama=defillama,
+    )
+
+    assert [row["source_name"] for row in rows] == ["coingecko", "defillama"]
+
+
+def test_collect_public_bronze_rows_keeps_partial_binance_success():
+    coingecko = CoinGeckoClient(
+        base_url="https://api.coingecko.com/api/v3",
+        session=FakeSession([{"id": "bitcoin", "symbol": "btc"}]),
+    )
+    defillama = DefiLlamaClient(
+        base_url="https://api.llama.fi",
+        session=FakeSession([{"name": "Aave"}]),
+    )
+
+    rows = collect_public_bronze_rows(
+        coingecko=coingecko,
+        binance=PartialBinanceClient(),
+        defillama=defillama,
+    )
+
+    assert [row["endpoint_name"] for row in rows] == ["coins_markets", "open_interest", "protocols"]

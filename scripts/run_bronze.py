@@ -2,6 +2,8 @@ from pathlib import Path
 from datetime import datetime, timezone
 import sys
 
+import requests
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
@@ -14,38 +16,64 @@ from src.ingest.coingecko import CoinGeckoClient
 from src.ingest.defillama import DefiLlamaClient
 
 
+def append_source_row(rows: list[dict], *, source_name: str, endpoint_name: str, payload, extracted_at: str) -> None:
+    rows.append(
+        build_bronze_row(
+            source_name=source_name,
+            endpoint_name=endpoint_name,
+            payload=payload,
+            extracted_at=extracted_at,
+        )
+    )
+
+
 def collect_public_bronze_rows(
     coingecko: CoinGeckoClient,
     binance: BinanceClient,
     defillama: DefiLlamaClient,
 ) -> list[dict]:
     extracted_at = datetime.now(timezone.utc).isoformat()
-    return [
-        build_bronze_row(
-            source_name="coingecko",
-            endpoint_name="coins_markets",
-            payload={"items": coingecko.fetch_markets(vs_currency="usd", page=1, per_page=25)},
-            extracted_at=extracted_at,
-        ),
-        build_bronze_row(
+    rows: list[dict] = []
+
+    append_source_row(
+        rows,
+        source_name="coingecko",
+        endpoint_name="coins_markets",
+        payload={"items": coingecko.fetch_markets(vs_currency="usd", page=1, per_page=25)},
+        extracted_at=extracted_at,
+    )
+
+    try:
+        append_source_row(
+            rows,
             source_name="binance",
             endpoint_name="open_interest",
             payload=binance.fetch_open_interest(symbol="BTCUSDT"),
             extracted_at=extracted_at,
-        ),
-        build_bronze_row(
+        )
+    except requests.RequestException as exc:
+        print(f"warning: skipping binance open_interest snapshot: {exc}")
+
+    try:
+        append_source_row(
+            rows,
             source_name="binance",
             endpoint_name="funding_rate",
             payload=binance.fetch_funding_rate(symbol="BTCUSDT", limit=1),
             extracted_at=extracted_at,
-        ),
-        build_bronze_row(
-            source_name="defillama",
-            endpoint_name="protocols",
-            payload={"items": defillama.fetch_protocols()},
-            extracted_at=extracted_at,
-        ),
-    ]
+        )
+    except requests.RequestException as exc:
+        print(f"warning: skipping binance funding_rate snapshot: {exc}")
+
+    append_source_row(
+        rows,
+        source_name="defillama",
+        endpoint_name="protocols",
+        payload={"items": defillama.fetch_protocols()},
+        extracted_at=extracted_at,
+    )
+
+    return rows
 
 
 def main() -> None:
