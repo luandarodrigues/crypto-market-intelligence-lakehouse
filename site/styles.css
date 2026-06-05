@@ -277,7 +277,8 @@ body::before {
 .app-context,
 .app-signal-strip,
 .app-insight-grid,
-.app-command-center {
+.app-command-center,
+.app-visual-grid {
   display: grid;
   gap: 18px;
 }
@@ -288,6 +289,11 @@ body::before {
 
 .app-command-center {
   grid-template-columns: 1.05fr 1.05fr 0.9fr;
+  margin-bottom: 24px;
+}
+
+.app-visual-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-bottom: 24px;
 }
 
@@ -326,6 +332,49 @@ body::before {
 .app-mini-list {
   display: grid;
   gap: 10px;
+}
+
+.bar-list {
+  display: grid;
+  gap: 12px;
+}
+
+.bar-row {
+  display: grid;
+  gap: 6px;
+}
+
+.bar-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.bar-label-row strong {
+  font-size: 0.95rem;
+}
+
+.bar-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(20, 184, 166, 0.82), rgba(183, 156, 255, 0.8));
+}
+
+.bar-fill--amber {
+  background: linear-gradient(90deg, rgba(244, 181, 68, 0.84), rgba(20, 184, 166, 0.75));
+}
+
+.bar-fill--lavender {
+  background: linear-gradient(90deg, rgba(183, 156, 255, 0.9), rgba(20, 184, 166, 0.7));
 }
 
 .app-mini-item,
@@ -1078,6 +1127,7 @@ td {
   }
 
   .app-command-center,
+  .app-visual-grid,
   .app-insight-grid {
     grid-template-columns: 1fr;
   }

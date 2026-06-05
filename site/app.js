@@ -187,6 +187,22 @@ function buildAlertItem(title, body, tone = "neutral") {
   return item;
 }
 
+function buildBarChartRow(label, valueLabel, fraction, tone = "default") {
+  const item = document.createElement("div");
+  item.className = "bar-row";
+  const fillClass = tone === "amber" ? "bar-fill bar-fill--amber" : tone === "lavender" ? "bar-fill bar-fill--lavender" : "bar-fill";
+  item.innerHTML = `
+    <div class="bar-label-row">
+      <strong>${label}</strong>
+      <span class="app-mini-label">${valueLabel}</span>
+    </div>
+    <div class="bar-track">
+      <div class="${fillClass}" style="width: ${Math.max(0, Math.min(100, fraction * 100))}%"></div>
+    </div>
+  `;
+  return item;
+}
+
 function buildBuildDetail(title, body, tone) {
   const item = document.createElement("article");
   item.className = `box box--${tone}`;
@@ -660,6 +676,59 @@ function renderAppCommandCenter(data) {
   }
 }
 
+function renderAppVisuals(data) {
+  const attentionBars = document.getElementById("app-attention-bars");
+  const narrativeBars = document.getElementById("app-narrative-bars");
+  const rsBars = document.getElementById("app-rs-bars");
+  if (!attentionBars || !narrativeBars || !rsBars) {
+    return;
+  }
+
+  const topAttention = Math.max(...data.top_assets.map((row) => row.attention_score), 1);
+  const attentionList = document.createElement("div");
+  attentionList.className = "bar-list";
+  data.top_assets.slice(0, 5).forEach((row) => {
+    attentionList.appendChild(
+      buildBarChartRow(row.symbol, formatNumber(row.attention_score, 2), row.attention_score / topAttention, "default"),
+    );
+  });
+  attentionBars.appendChild(attentionList);
+
+  const topNarrative = Math.max(...data.narrative_explorer_rows.map((row) => row.avg_attention_score), 1);
+  const narrativeList = document.createElement("div");
+  narrativeList.className = "bar-list";
+  data.narrative_explorer_rows.slice(0, 5).forEach((row) => {
+    narrativeList.appendChild(
+      buildBarChartRow(
+        formatNarrativeLabel(row.narrative),
+        formatNumber(row.avg_attention_score, 2),
+        row.avg_attention_score / topNarrative,
+        "amber",
+      ),
+    );
+  });
+  narrativeBars.appendChild(narrativeList);
+
+  const rsRows = data.asset_explorer_rows
+    .filter((row) => row.relative_strength_7d !== null && row.relative_strength_7d !== undefined)
+    .sort((left, right) => right.relative_strength_7d - left.relative_strength_7d)
+    .slice(0, 5);
+  const maxRs = Math.max(...rsRows.map((row) => Math.abs(row.relative_strength_7d)), 1);
+  const rsList = document.createElement("div");
+  rsList.className = "bar-list";
+  rsRows.forEach((row) => {
+    rsList.appendChild(
+      buildBarChartRow(
+        row.symbol,
+        formatPercent(row.relative_strength_7d),
+        Math.abs(row.relative_strength_7d) / maxRs,
+        "lavender",
+      ),
+    );
+  });
+  rsBars.appendChild(rsList);
+}
+
 function activateRevealAnimations() {
   const targets = document.querySelectorAll(
     ".hero, .about-shell, .cloud-pin, .featured-shell, .explorer-shell, .card, .architecture-card, .signal-card, .next-steps li",
@@ -945,6 +1014,7 @@ function renderAppPage() {
 
   renderAppInsights(data);
   renderAppCommandCenter(data);
+  renderAppVisuals(data);
   renderExplorer(data);
 }
 
