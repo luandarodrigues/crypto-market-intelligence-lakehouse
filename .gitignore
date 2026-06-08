@@ -5,7 +5,21 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .env
+.env.*
+!.env.example
+.python-version
 .vercel/
+.idea/
+.vscode/
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.db
+*.sqlite
+*.sqlite3
 artifacts/
 
 .vercel
