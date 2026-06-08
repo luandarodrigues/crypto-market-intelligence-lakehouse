@@ -1,49 +1,38 @@
 import requests
 
-from src.ingest.binance import BinanceClient
-from src.ingest.coingecko import CoinGeckoClient
-from src.ingest.defillama import DefiLlamaClient
-from scripts.run_bronze import collect_public_bronze_rows
+from scripts.run_bronze import (
+    DERIVATIVES_SYMBOLS,
+    MARKET_SNAPSHOT_PAGE_SIZE,
+    collect_public_bronze_rows,
+)
 
 
-class FakeResponse:
-    def __init__(self, payload):
-        self._payload = payload
+class StubCoinGeckoClient:
+    def __init__(self) -> None:
+        self.calls = []
 
-    def raise_for_status(self):
-        return None
-
-    def json(self):
-        return self._payload
+    def fetch_markets(self, vs_currency: str, page: int, per_page: int) -> list[dict]:
+        self.calls.append({"vs_currency": vs_currency, "page": page, "per_page": per_page})
+        return [{"id": "bitcoin", "symbol": "btc"}]
 
 
-class FakeSession:
-    def __init__(self, payload):
-        self.payload = payload
-
-    def get(self, url, params=None, timeout=30):
-        return FakeResponse(self.payload)
+class StubDefiLlamaClient:
+    def fetch_protocols(self) -> list[dict]:
+        return [{"name": "Aave", "symbol": "aave"}]
 
 
-def test_collect_public_bronze_rows_returns_four_source_rows():
-    coingecko = CoinGeckoClient(
-        base_url="https://api.coingecko.com/api/v3",
-        session=FakeSession([{"id": "bitcoin", "symbol": "btc"}]),
-    )
-    binance = BinanceClient(
-        base_url="https://fapi.binance.com",
-        session=FakeSession({"symbol": "BTCUSDT", "openInterest": "123.45"}),
-    )
-    defillama = DefiLlamaClient(
-        base_url="https://api.llama.fi",
-        session=FakeSession([{"name": "Aave"}]),
-    )
-    rows = collect_public_bronze_rows(coingecko=coingecko, binance=binance, defillama=defillama)
-    assert len(rows) == 4
-    assert rows[0]["source_name"] == "coingecko"
-    assert rows[1]["source_name"] == "binance"
-    assert rows[2]["endpoint_name"] == "funding_rate"
-    assert rows[3]["source_name"] == "defillama"
+class StubBinanceClient:
+    def __init__(self) -> None:
+        self.open_interest_calls = []
+        self.funding_rate_calls = []
+
+    def fetch_open_interest(self, symbol: str) -> dict:
+        self.open_interest_calls.append(symbol)
+        return {"symbol": symbol, "openInterest": "123.45"}
+
+    def fetch_funding_rate(self, symbol: str, limit: int = 1) -> list[dict]:
+        self.funding_rate_calls.append({"symbol": symbol, "limit": limit})
+        return [{"symbol": symbol, "fundingRate": "0.01"}]
 
 
 class FailingBinanceClient:
@@ -56,45 +45,45 @@ class FailingBinanceClient:
 
 class PartialBinanceClient:
     def fetch_open_interest(self, symbol: str) -> dict:
-        return {"symbol": "BTCUSDT", "openInterest": "123.45"}
+        return {"symbol": symbol, "openInterest": "123.45"}
 
     def fetch_funding_rate(self, symbol: str, limit: int = 1) -> list[dict]:
         raise requests.HTTPError("451 Client Error")
 
 
-def test_collect_public_bronze_rows_continues_when_binance_is_unavailable():
-    coingecko = CoinGeckoClient(
-        base_url="https://api.coingecko.com/api/v3",
-        session=FakeSession([{"id": "bitcoin", "symbol": "btc"}]),
-    )
-    defillama = DefiLlamaClient(
-        base_url="https://api.llama.fi",
-        session=FakeSession([{"name": "Aave"}]),
-    )
+def test_collect_public_bronze_rows_expands_market_and_derivatives_coverage():
+    coingecko = StubCoinGeckoClient()
+    binance = StubBinanceClient()
+    defillama = StubDefiLlamaClient()
 
+    rows = collect_public_bronze_rows(coingecko=coingecko, binance=binance, defillama=defillama)
+
+    assert coingecko.calls == [{"vs_currency": "usd", "page": 1, "per_page": MARKET_SNAPSHOT_PAGE_SIZE}]
+    assert len(binance.open_interest_calls) == len(DERIVATIVES_SYMBOLS)
+    assert len(binance.funding_rate_calls) == len(DERIVATIVES_SYMBOLS)
+    assert rows[0]["source_name"] == "coingecko"
+    assert rows[-1]["source_name"] == "defillama"
+    assert any(row["endpoint_name"] == "funding_rate" for row in rows)
+
+
+def test_collect_public_bronze_rows_continues_when_binance_is_unavailable():
     rows = collect_public_bronze_rows(
-        coingecko=coingecko,
+        coingecko=StubCoinGeckoClient(),
         binance=FailingBinanceClient(),
-        defillama=defillama,
+        defillama=StubDefiLlamaClient(),
     )
 
     assert [row["source_name"] for row in rows] == ["coingecko", "defillama"]
 
 
 def test_collect_public_bronze_rows_keeps_partial_binance_success():
-    coingecko = CoinGeckoClient(
-        base_url="https://api.coingecko.com/api/v3",
-        session=FakeSession([{"id": "bitcoin", "symbol": "btc"}]),
-    )
-    defillama = DefiLlamaClient(
-        base_url="https://api.llama.fi",
-        session=FakeSession([{"name": "Aave"}]),
-    )
-
     rows = collect_public_bronze_rows(
-        coingecko=coingecko,
+        coingecko=StubCoinGeckoClient(),
         binance=PartialBinanceClient(),
-        defillama=defillama,
+        defillama=StubDefiLlamaClient(),
     )
 
-    assert [row["endpoint_name"] for row in rows] == ["coins_markets", "open_interest", "protocols"]
+    open_interest_rows = [row for row in rows if row["endpoint_name"] == "open_interest"]
+    funding_rows = [row for row in rows if row["endpoint_name"] == "funding_rate"]
+    assert len(open_interest_rows) == len(DERIVATIVES_SYMBOLS)
+    assert funding_rows == []

@@ -18,14 +18,25 @@ SUPPORTED_ASSETS = {
     "DOGE",
     "ADA",
     "LINK",
+    "AVAX",
+    "SUI",
+    "APT",
+    "DOT",
+    "ATOM",
+    "NEAR",
+    "TRX",
+    "LTC",
+    "BCH",
+    "SEI",
+    "INJ",
+    "JUP",
+    "WIF",
     "AAVE",
     "UNI",
     "MKR",
     "ARB",
     "OP",
     "STRK",
-    "AVAX",
-    "SUI",
     "TAO",
     "FET",
     "PEPE",
@@ -36,7 +47,45 @@ SUPPORTED_ASSETS = {
     "LDO",
     "ENA",
     "EIGEN",
+    "PENDLE",
+    "LDO",
+    "TON",
+    "HBAR",
 }
+
+
+SUPPORTED_DERIVATIVES_SYMBOLS = (
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "ADAUSDT",
+    "LINKUSDT",
+    "AVAXUSDT",
+    "AAVEUSDT",
+    "UNIUSDT",
+    "DOTUSDT",
+    "ATOMUSDT",
+    "NEARUSDT",
+    "TRXUSDT",
+    "LTCUSDT",
+    "BCHUSDT",
+    "APTUSDT",
+    "SUIUSDT",
+    "ARBUSDT",
+    "OPUSDT",
+    "STRKUSDT",
+    "PEPEUSDT",
+    "WIFUSDT",
+    "RENDERUSDT",
+    "TAOUSDT",
+    "FETUSDT",
+    "ENAUSDT",
+    "ONDOUSDT",
+    "SEIUSDT",
+)
 
 
 def should_exclude_asset(symbol: str) -> bool:
@@ -45,3 +94,7 @@ def should_exclude_asset(symbol: str) -> bool:
 
 def is_supported_asset(symbol: str) -> bool:
     return symbol.upper() in SUPPORTED_ASSETS
+
+
+def get_supported_derivatives_symbols() -> tuple[str, ...]:
+    return SUPPORTED_DERIVATIVES_SYMBOLS

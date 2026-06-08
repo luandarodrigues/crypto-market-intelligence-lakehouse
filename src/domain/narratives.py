@@ -4,14 +4,16 @@ from src.domain.entities import NarrativeDefinition
 NARRATIVE_UNIVERSE = {
     "bitcoin_ecosystem": NarrativeDefinition("bitcoin_ecosystem", "Bitcoin Ecosystem", ("BTC", "ORDI")),
     "ethereum_ecosystem": NarrativeDefinition("ethereum_ecosystem", "Ethereum Ecosystem", ("ETH", "LDO")),
-    "layer1": NarrativeDefinition("layer1", "Layer 1", ("SOL", "AVAX", "SUI")),
+    "layer1": NarrativeDefinition("layer1", "Layer 1", ("SOL", "AVAX", "SUI", "APT", "SEI", "INJ", "TON", "HBAR")),
     "layer2": NarrativeDefinition("layer2", "Layer 2", ("ARB", "OP", "STRK")),
-    "defi": NarrativeDefinition("defi", "DeFi", ("AAVE", "UNI", "MKR")),
+    "defi": NarrativeDefinition("defi", "DeFi", ("AAVE", "UNI", "MKR", "LINK", "PENDLE")),
     "restaking_modular": NarrativeDefinition("restaking_modular", "Restaking and Modular", ("ENA", "EIGEN")),
     "ai_data": NarrativeDefinition("ai_data", "AI and Data", ("TAO", "FET")),
-    "meme_social_beta": NarrativeDefinition("meme_social_beta", "Meme and Social Beta", ("DOGE", "PEPE")),
+    "meme_social_beta": NarrativeDefinition("meme_social_beta", "Meme and Social Beta", ("DOGE", "PEPE", "WIF")),
     "rwa": NarrativeDefinition("rwa", "RWA", ("ONDO", "MKR")),
     "depin_infra": NarrativeDefinition("depin_infra", "DePIN and Infrastructure", ("RENDER", "AKT")),
+    "cosmos_interop": NarrativeDefinition("cosmos_interop", "Cosmos and Interop", ("ATOM", "TRX")),
+    "solana_ecosystem": NarrativeDefinition("solana_ecosystem", "Solana Ecosystem", ("JUP", "WIF")),
 }
 
 

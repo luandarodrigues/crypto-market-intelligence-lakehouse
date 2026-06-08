@@ -11,9 +11,14 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.bronze.writers import build_bronze_row, write_jsonl_rows
 from src.config.settings import AppSettings
+from src.domain.asset_universe import get_supported_derivatives_symbols
 from src.ingest.binance import BinanceClient
 from src.ingest.coingecko import CoinGeckoClient
 from src.ingest.defillama import DefiLlamaClient
+
+
+MARKET_SNAPSHOT_PAGE_SIZE = 150
+DERIVATIVES_SYMBOLS = get_supported_derivatives_symbols()
 
 
 def append_source_row(rows: list[dict], *, source_name: str, endpoint_name: str, payload, extracted_at: str) -> None:
@@ -39,31 +44,32 @@ def collect_public_bronze_rows(
         rows,
         source_name="coingecko",
         endpoint_name="coins_markets",
-        payload={"items": coingecko.fetch_markets(vs_currency="usd", page=1, per_page=25)},
+        payload={"items": coingecko.fetch_markets(vs_currency="usd", page=1, per_page=MARKET_SNAPSHOT_PAGE_SIZE)},
         extracted_at=extracted_at,
     )
 
-    try:
-        append_source_row(
-            rows,
-            source_name="binance",
-            endpoint_name="open_interest",
-            payload=binance.fetch_open_interest(symbol="BTCUSDT"),
-            extracted_at=extracted_at,
-        )
-    except requests.RequestException as exc:
-        print(f"warning: skipping binance open_interest snapshot: {exc}")
+    for symbol in DERIVATIVES_SYMBOLS:
+        try:
+            append_source_row(
+                rows,
+                source_name="binance",
+                endpoint_name="open_interest",
+                payload=binance.fetch_open_interest(symbol=symbol),
+                extracted_at=extracted_at,
+            )
+        except requests.RequestException as exc:
+            print(f"warning: skipping binance open_interest snapshot for {symbol}: {exc}")
 
-    try:
-        append_source_row(
-            rows,
-            source_name="binance",
-            endpoint_name="funding_rate",
-            payload=binance.fetch_funding_rate(symbol="BTCUSDT", limit=1),
-            extracted_at=extracted_at,
-        )
-    except requests.RequestException as exc:
-        print(f"warning: skipping binance funding_rate snapshot: {exc}")
+        try:
+            append_source_row(
+                rows,
+                source_name="binance",
+                endpoint_name="funding_rate",
+                payload=binance.fetch_funding_rate(symbol=symbol, limit=1),
+                extracted_at=extracted_at,
+            )
+        except requests.RequestException as exc:
+            print(f"warning: skipping binance funding_rate snapshot for {symbol}: {exc}")
 
     append_source_row(
         rows,

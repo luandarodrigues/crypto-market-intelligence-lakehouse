@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crypto Market Intelligence Lakehouse</title>
     <meta
+      id="page-description"
       name="description"
       content="A premium static case-study microsite for a Databricks-oriented crypto market intelligence platform."
     >
@@ -21,11 +22,11 @@
             <span class="brand-mark"></span>
             <div class="brand-copy">
               <strong>Crypto Market Intelligence</strong>
-              <span>Databricks-oriented case study and product prototype</span>
+              <span id="site-brand-subtitle">Databricks-oriented case study and product prototype</span>
             </div>
           </a>
 
-          <div class="side-note">
+          <div class="side-note" id="site-side-note">
             <p>
               A portfolio project built to show platform thinking across lakehouse design,
               public-market ingestion, feature engineering, and interpretable market intelligence outputs.
@@ -34,42 +35,43 @@
 
           <div class="side-viz">
             <div class="viz-grid"></div>
-            <div class="viz-label">asset / narrative / signal graph</div>
+            <div class="viz-label" id="site-viz-label">asset / narrative / signal graph</div>
           </div>
         </div>
 
         <div class="side-links">
-          <a href="#overview-section">Overview <span>&nearr;</span></a>
-          <a href="#build-section">Build <span>&nearr;</span></a>
-          <a href="#blueprint-section">Blueprint <span>&nearr;</span></a>
-          <a href="#explorer-section">Asset Explorer <span>&nearr;</span></a>
-          <a href="./app.html">Open App <span>&nearr;</span></a>
-          <a href="#roadmap-section">Roadmap <span>&nearr;</span></a>
+          <a id="side-link-overview" href="#overview-section">Overview <span>&nearr;</span></a>
+          <a id="side-link-build" href="#build-section">Build <span>&nearr;</span></a>
+          <a id="side-link-blueprint" href="#blueprint-section">Blueprint <span>&nearr;</span></a>
+          <a id="side-link-explorer" href="#explorer-section">Asset Explorer <span>&nearr;</span></a>
+          <a id="side-link-app" href="./app.html">Open App <span>&nearr;</span></a>
+          <a id="side-link-roadmap" href="#roadmap-section">Roadmap <span>&nearr;</span></a>
         </div>
       </aside>
 
       <main class="main">
         <nav class="topnav">
-          <a href="#overview-section">Overview</a>
-          <a href="#architecture-section">Architecture</a>
-          <a href="#blueprint-section">Blueprint</a>
-          <a href="#signals-section">Signals</a>
-          <a href="#explorer-section">Asset Explorer</a>
-          <a href="./app.html">Open App</a>
-          <a href="#roadmap-section">Roadmap</a>
+          <a id="nav-link-overview" href="#overview-section">Overview</a>
+          <a id="nav-link-architecture" href="#architecture-section">Architecture</a>
+          <a id="nav-link-blueprint" href="#blueprint-section">Blueprint</a>
+          <a id="nav-link-signals" href="#signals-section">Signals</a>
+          <a id="nav-link-explorer" href="#explorer-section">Asset Explorer</a>
+          <a id="nav-link-app" href="./app.html">Open App</a>
+          <a id="nav-link-roadmap" href="#roadmap-section">Roadmap</a>
+          <a id="nav-link-language" href="./index.html?lang=pt-BR">PT</a>
         </nav>
 
         <section class="hero" id="top">
           <div>
-            <p class="eyebrow reveal">Databricks / Crypto Research / Asset Attention</p>
+            <p class="eyebrow reveal" id="hero-eyebrow">Databricks / Crypto Research / Asset Attention</p>
             <h1 class="reveal" id="hero-title">Crypto Market Intelligence Lakehouse</h1>
             <div class="split reveal">
               <p id="hero-subtitle"></p>
               <div class="hero-metrics" id="hero-stats"></div>
             </div>
             <div class="hero-links reveal">
-              <a class="hero-link-primary" href="./app.html">Open Interactive App</a>
-              <a class="hero-link-secondary" href="#explorer-section">View Embedded Explorer</a>
+              <a class="hero-link-primary" id="hero-link-primary" href="./app.html">Open Interactive App</a>
+              <a class="hero-link-secondary" id="hero-link-secondary" href="#explorer-section">View Embedded Explorer</a>
             </div>
           </div>
         </section>
@@ -78,10 +80,10 @@
           <div class="about-shell reveal">
             <div class="about-head">
               <div class="about-title">
-                <p class="eyebrow">Overview / Positioning</p>
-                <h2>Built as a market intelligence <span class="section-accent">system.</span></h2>
+                <p class="eyebrow" id="overview-eyebrow">Overview / Positioning</p>
+                <h2 id="overview-title">Built as a market intelligence <span class="section-accent">system.</span></h2>
               </div>
-              <div class="about-text">
+              <div class="about-text" id="overview-body">
                 <p>
                   This project is not framed as a trading bot and not as a toy forecasting demo. It is a product
                   for spotting which crypto assets and narratives deserve attention, while keeping the build path
@@ -100,10 +102,10 @@
 
         <section class="cloud-section" id="architecture-section">
           <div class="cloud-pin">
-            <div class="cloud-copy">
-              <p class="eyebrow">Architecture / Databricks Shape</p>
-              <h2>From raw public feeds to gold attention outputs.</h2>
-              <p>
+            <div class="cloud-copy" id="architecture-copy">
+              <p class="eyebrow" id="architecture-eyebrow">Architecture / Databricks Shape</p>
+              <h2 id="architecture-title">From raw public feeds to gold attention outputs.</h2>
+              <p id="architecture-description">
                 The pipeline follows a medallion logic shaped for Databricks evolution: raw snapshots, normalized
                 analytical tables, reusable feature families, and a gold layer built for asset and narrative attention.
               </p>
@@ -118,17 +120,17 @@
 
         <section class="featured section" id="build-section">
           <div class="featured-shell reveal">
-            <p class="eyebrow">Build / Databricks / Platform Story</p>
+            <p class="eyebrow" id="build-eyebrow">Build / Databricks / Platform Story</p>
             <div class="featured-head">
               <div class="featured-intro">
-                <h2>How the system was constructed around a lakehouse mindset.</h2>
+                <h2 id="build-title">How the system was constructed around a lakehouse mindset.</h2>
               </div>
               <div class="featured-copy">
-                <p class="featured-question">
+                <p class="featured-question" id="build-question">
                   The interesting part is not just the score. The interesting part is the path from heterogeneous
                   market signals to a clean analytical product layer.
                 </p>
-                <p>
+                <p id="build-description">
                   This implementation uses local JSONL development artifacts today, but the structure is intentionally
                   shaped to migrate into Databricks jobs, Delta-backed medallion layers, and more institutional-quality
                   orchestration over time.
@@ -145,16 +147,16 @@
 
         <section class="tabs section" id="signals-section">
           <div class="title">
-            <p class="eyebrow">Signals</p>
-            <h2>Cross-market concepts translated into readable <span class="section-accent">signal families.</span></h2>
+            <p class="eyebrow" id="signals-eyebrow">Signals</p>
+            <h2 id="signals-title">Cross-market concepts translated into readable <span class="section-accent">signal families.</span></h2>
           </div>
           <div id="signals" class="signal-grid"></div>
         </section>
 
         <section class="tabs section" id="blueprint-section">
           <div class="title">
-            <p class="eyebrow">Databricks Blueprint</p>
-            <h2>The repo already carries the first deployment-facing <span class="section-accent">Databricks path.</span></h2>
+            <p class="eyebrow" id="blueprint-eyebrow">Databricks Blueprint</p>
+            <h2 id="blueprint-title">The repo already carries the first deployment-facing <span class="section-accent">Databricks path.</span></h2>
           </div>
           <div id="blueprint-grid" class="blueprint-grid"></div>
         </section>
@@ -162,8 +164,8 @@
         <section class="explorer section" id="explorer-section">
           <div class="section-heading explorer-heading">
             <div>
-              <p class="eyebrow">Asset Explorer</p>
-              <h2>Explore the current gold layer like a product surface.</h2>
+              <p class="eyebrow" id="explorer-eyebrow">Asset Explorer</p>
+              <h2 id="explorer-title">Explore the current gold layer like a product surface.</h2>
             </div>
             <p class="snapshot-summary" id="generated-at"></p>
           </div>
@@ -177,11 +179,11 @@
             <div id="asset-mode-panel">
               <div class="explorer-toolbar">
                 <div class="field">
-                  <label for="narrative-filter">Narrative</label>
+                  <label id="label-narrative-filter" for="narrative-filter">Narrative</label>
                   <select id="narrative-filter"></select>
                 </div>
                 <div class="field">
-                  <label for="sort-filter">Sort by</label>
+                  <label id="label-sort-filter" for="sort-filter">Sort by</label>
                   <select id="sort-filter">
                     <option value="attention_score">Attention</option>
                     <option value="relative_strength_7d">RS 7d</option>
@@ -189,7 +191,7 @@
                   </select>
                 </div>
                 <div class="field">
-                  <label for="regime-filter">Regime</label>
+                  <label id="label-regime-filter" for="regime-filter">Regime</label>
                   <select id="regime-filter">
                     <option value="all">All regimes</option>
                     <option value="bullish_attention">Bullish attention</option>
@@ -198,7 +200,7 @@
                   </select>
                 </div>
                 <div class="field">
-                  <label for="compare-asset-filter">Compare to</label>
+                  <label id="label-compare-filter" for="compare-asset-filter">Compare to</label>
                   <select id="compare-asset-filter"></select>
                 </div>
               </div>
@@ -206,16 +208,16 @@
               <div class="explorer-grid">
                 <article class="explorer-list-card">
                   <div class="card-header">
-                    <h3>Asset List</h3>
-                    <p>Built from the gold attention output and enriched with market and derivatives context.</p>
+                    <h3 id="asset-list-title">Asset List</h3>
+                    <p id="asset-list-description">Built from the gold attention output and enriched with market and derivatives context.</p>
                   </div>
                   <div id="asset-list" class="asset-list"></div>
                 </article>
 
                 <article class="explorer-detail-card">
                   <div class="card-header">
-                    <h3>Selected Asset</h3>
-                    <p>A first product surface on top of the exported pipeline data, designed as a base for a fuller interactive app.</p>
+                    <h3 id="selected-asset-title">Selected Asset</h3>
+                    <p id="selected-asset-description">A first product surface on top of the exported pipeline data, designed as a base for a fuller interactive app.</p>
                   </div>
                   <div id="asset-detail" class="asset-detail"></div>
                   <div class="explorer-subgrid">
@@ -230,16 +232,16 @@
               <div class="explorer-grid">
                 <article class="explorer-list-card">
                   <div class="card-header">
-                    <h3>Narrative List</h3>
-                    <p>Grouped pulse across the current tracked narratives.</p>
+                    <h3 id="narrative-list-title">Narrative List</h3>
+                    <p id="narrative-list-description">Grouped pulse across the current tracked narratives.</p>
                   </div>
                   <div id="narrative-list" class="asset-list"></div>
                 </article>
 
                 <article class="explorer-detail-card">
                   <div class="card-header">
-                    <h3>Selected Narrative</h3>
-                    <p>A narrative-centric view for scanning leaders, breadth, and peer assets.</p>
+                    <h3 id="selected-narrative-title">Selected Narrative</h3>
+                    <p id="selected-narrative-description">A narrative-centric view for scanning leaders, breadth, and peer assets.</p>
                   </div>
                   <div id="narrative-detail" class="asset-detail"></div>
                 </article>
@@ -251,10 +253,10 @@
         <section class="snapshot section" id="snapshot">
           <div class="section-heading section-heading-split">
             <div>
-              <p class="eyebrow">Snapshot</p>
-              <h2>Current market attention output</h2>
+              <p class="eyebrow" id="snapshot-eyebrow">Snapshot</p>
+              <h2 id="snapshot-title">Current market attention output</h2>
             </div>
-            <p class="snapshot-summary">
+            <p class="snapshot-summary" id="snapshot-summary">
               The latest gold layer highlights where attention is concentrated, which narratives are leading,
               and whether recent conditions look broadly confirmed or more mixed.
             </p>
@@ -263,15 +265,15 @@
           <div class="snapshot-grid">
             <article class="card card--health">
               <div class="card-header">
-                <h3>Top Assets</h3>
-                <p>Latest attention-ranked assets from the current exported gold layer.</p>
+                <h3 id="top-assets-title">Top Assets</h3>
+                <p id="top-assets-description">Latest attention-ranked assets from the current exported gold layer.</p>
               </div>
               <div id="top-assets" class="table-shell"></div>
             </article>
             <article class="card card--ops">
               <div class="card-header">
-                <h3>Top Narratives</h3>
-                <p>Aggregated attention by narrative grouping.</p>
+                <h3 id="top-narratives-title">Top Narratives</h3>
+                <p id="top-narratives-description">Aggregated attention by narrative grouping.</p>
               </div>
               <div id="top-narratives" class="table-shell"></div>
             </article>
@@ -280,15 +282,16 @@
 
         <section class="tabs section" id="roadmap-section">
           <div class="title">
-            <p class="eyebrow">Platform Roadmap</p>
-            <h2>What comes next as this grows from case study into a more complete <span class="section-accent">platform.</span></h2>
+            <p class="eyebrow" id="roadmap-eyebrow">Platform Roadmap</p>
+            <h2 id="roadmap-title">What comes next as this grows from case study into a more complete <span class="section-accent">platform.</span></h2>
           </div>
-          <ul id="next-steps" class="next-steps"></ul>
+          <div id="roadmap-grid" class="roadmap-grid"></div>
         </section>
       </main>
     </div>
 
     <script src="./site_data.js"></script>
+    <script src="./ui_copy.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

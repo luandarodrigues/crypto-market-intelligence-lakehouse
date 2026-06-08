@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crypto Market Intelligence App</title>
     <meta
+      id="page-description"
       name="description"
       content="Interactive app surface for the Crypto Market Intelligence Lakehouse project."
     >
@@ -16,22 +17,23 @@
   <body>
     <main id="app-shell" class="app-shell">
       <header class="app-topbar">
-        <a class="brand" href="./index.html">
+        <a class="brand" id="app-brand-link" href="./index.html">
           <span class="brand-mark"></span>
           <div class="brand-copy">
             <strong>Crypto Market Intelligence</strong>
-            <span>Interactive product surface</span>
+            <span id="app-brand-subtitle">Interactive product surface</span>
           </div>
         </a>
         <div class="app-links">
-          <a href="./index.html">Case Study</a>
+          <a id="app-link-case-study" href="./index.html">Case Study</a>
           <a href="https://github.com/luandarodrigues/crypto-market-intelligence-lakehouse">GitHub</a>
+          <a id="app-link-language" href="./app.html?lang=pt-BR">PT</a>
         </div>
       </header>
 
       <section class="app-hero">
         <div class="app-hero-copy">
-          <p class="eyebrow">Interactive App / Gold Layer / Narrative Rotation</p>
+          <p class="eyebrow" id="app-hero-eyebrow">Interactive App / Gold Layer / Narrative Rotation</p>
           <h1 id="app-hero-title">Crypto Market Intelligence App</h1>
           <p id="app-hero-subtitle" class="app-subtitle"></p>
         </div>
@@ -48,24 +50,24 @@
       <section class="app-command-center">
         <article class="app-panel">
           <div class="card-header">
-            <h3>Attention Leaderboard</h3>
-            <p>Highest-priority assets from the current exported snapshot.</p>
+            <h3 id="app-leaderboard-title">Attention Leaderboard</h3>
+            <p id="app-leaderboard-description">Highest-priority assets from the current exported snapshot.</p>
           </div>
           <div id="app-leaderboard" class="app-panel-body"></div>
         </article>
 
         <article class="app-panel">
           <div class="card-header">
-            <h3>Narrative Rotation Board</h3>
-            <p>Leading narratives and the assets currently carrying each cluster.</p>
+            <h3 id="app-rotation-title">Narrative Rotation Board</h3>
+            <p id="app-rotation-description">Leading narratives and the assets currently carrying each cluster.</p>
           </div>
           <div id="app-rotation-board" class="app-panel-body"></div>
         </article>
 
         <article class="app-panel">
           <div class="card-header">
-            <h3>Featured Alerts</h3>
-            <p>Quick-read observations generated from the current product snapshot.</p>
+            <h3 id="app-alerts-title">Featured Alerts</h3>
+            <p id="app-alerts-description">Quick-read observations generated from the current product snapshot.</p>
           </div>
           <div id="app-alerts" class="app-panel-body"></div>
         </article>
@@ -74,24 +76,24 @@
       <section class="app-visual-grid">
         <article class="app-panel">
           <div class="card-header">
-            <h3>Attention Distribution</h3>
-            <p>Relative attention intensity across the current leading assets.</p>
+            <h3 id="app-attention-bars-title">Attention Distribution</h3>
+            <p id="app-attention-bars-description">Relative attention intensity across the current leading assets.</p>
           </div>
           <div id="app-attention-bars" class="app-panel-body"></div>
         </article>
 
         <article class="app-panel">
           <div class="card-header">
-            <h3>Narrative Strength</h3>
-            <p>Average attention by narrative cluster.</p>
+            <h3 id="app-narrative-bars-title">Narrative Strength</h3>
+            <p id="app-narrative-bars-description">Average attention by narrative cluster.</p>
           </div>
           <div id="app-narrative-bars" class="app-panel-body"></div>
         </article>
 
         <article class="app-panel">
           <div class="card-header">
-            <h3>RS 7d Board</h3>
-            <p>Short-horizon cross-sectional strength from the exported asset universe.</p>
+            <h3 id="app-rs-bars-title">RS 7d Board</h3>
+            <p id="app-rs-bars-description">Short-horizon cross-sectional strength from the exported asset universe.</p>
           </div>
           <div id="app-rs-bars" class="app-panel-body"></div>
         </article>
@@ -100,8 +102,8 @@
       <section class="explorer section app-explorer">
         <div class="section-heading explorer-heading">
           <div>
-            <p class="eyebrow">Live Product Prototype</p>
-            <h2>Inspect assets, narratives, and comparative context from the current exported snapshot.</h2>
+            <p class="eyebrow" id="app-explorer-eyebrow">Live Product Prototype</p>
+            <h2 id="app-explorer-title">Inspect assets, narratives, and comparative context from the current exported snapshot.</h2>
           </div>
           <p class="snapshot-summary" id="generated-at"></p>
         </div>
@@ -115,11 +117,11 @@
           <div id="asset-mode-panel">
             <div class="explorer-toolbar">
               <div class="field">
-                <label for="narrative-filter">Narrative</label>
+                <label id="label-narrative-filter" for="narrative-filter">Narrative</label>
                 <select id="narrative-filter"></select>
               </div>
               <div class="field">
-                <label for="sort-filter">Sort by</label>
+                <label id="label-sort-filter" for="sort-filter">Sort by</label>
                 <select id="sort-filter">
                   <option value="attention_score">Attention</option>
                   <option value="relative_strength_7d">RS 7d</option>
@@ -127,7 +129,7 @@
                 </select>
               </div>
               <div class="field">
-                <label for="regime-filter">Regime</label>
+                <label id="label-regime-filter" for="regime-filter">Regime</label>
                 <select id="regime-filter">
                   <option value="all">All regimes</option>
                   <option value="bullish_attention">Bullish attention</option>
@@ -136,7 +138,7 @@
                 </select>
               </div>
               <div class="field">
-                <label for="compare-asset-filter">Compare to</label>
+                <label id="label-compare-filter" for="compare-asset-filter">Compare to</label>
                 <select id="compare-asset-filter"></select>
               </div>
             </div>
@@ -144,16 +146,16 @@
             <div class="explorer-grid">
               <article class="explorer-list-card">
                 <div class="card-header">
-                  <h3>Asset List</h3>
-                  <p>Enriched with market structure, derivatives coverage, and cluster context.</p>
+                  <h3 id="asset-list-title">Asset List</h3>
+                  <p id="asset-list-description">Enriched with market structure, derivatives coverage, and cluster context.</p>
                 </div>
                 <div id="asset-list" class="asset-list"></div>
               </article>
 
               <article class="explorer-detail-card">
                 <div class="card-header">
-                  <h3>Selected Asset</h3>
-                  <p>Product view built directly on top of the exported gold-layer snapshot.</p>
+                  <h3 id="selected-asset-title">Selected Asset</h3>
+                  <p id="selected-asset-description">Product view built directly on top of the exported gold-layer snapshot.</p>
                 </div>
                 <div id="asset-detail" class="asset-detail"></div>
                 <div class="explorer-subgrid">
@@ -168,16 +170,16 @@
             <div class="explorer-grid">
               <article class="explorer-list-card">
                 <div class="card-header">
-                  <h3>Narrative List</h3>
-                  <p>Grouped rotation view across tracked narratives.</p>
+                  <h3 id="narrative-list-title">Narrative List</h3>
+                  <p id="narrative-list-description">Grouped rotation view across tracked narratives.</p>
                 </div>
                 <div id="narrative-list" class="asset-list"></div>
               </article>
 
               <article class="explorer-detail-card">
                 <div class="card-header">
-                  <h3>Selected Narrative</h3>
-                  <p>Cluster-level view for rotation, breadth, and leadership.</p>
+                  <h3 id="selected-narrative-title">Selected Narrative</h3>
+                  <p id="selected-narrative-description">Cluster-level view for rotation, breadth, and leadership.</p>
                 </div>
                 <div id="narrative-detail" class="asset-detail"></div>
               </article>
@@ -188,6 +190,7 @@
     </main>
 
     <script src="./site_data.js"></script>
+    <script src="./ui_copy.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

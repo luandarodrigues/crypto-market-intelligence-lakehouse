@@ -15,13 +15,21 @@ from src.domain.narratives import NARRATIVE_UNIVERSE
 NARRATIVE_OVERRIDES = {
     "ADA": "layer1",
     "AVAX": "layer1",
+    "APT": "layer1",
     "BNB": "layer1",
+    "HBAR": "layer1",
+    "INJ": "layer1",
+    "SEI": "layer1",
+    "SUI": "layer1",
+    "TON": "layer1",
     "XRP": "layer1",
     "LINK": "defi",
     "MKR": "defi",
+    "PENDLE": "defi",
     "UNI": "defi",
     "DOGE": "meme_social_beta",
     "PEPE": "meme_social_beta",
+    "WIF": "meme_social_beta",
     "ONDO": "rwa",
     "RENDER": "depin_infra",
     "AKT": "depin_infra",
@@ -29,6 +37,9 @@ NARRATIVE_OVERRIDES = {
     "FET": "ai_data",
     "ENA": "restaking_modular",
     "EIGEN": "restaking_modular",
+    "ATOM": "cosmos_interop",
+    "TRX": "cosmos_interop",
+    "JUP": "solana_ecosystem",
 }
 
 
