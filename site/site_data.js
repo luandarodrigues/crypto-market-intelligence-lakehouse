@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-08T15:57:20.889537+00:00",
+  "generated_at": "2026-06-08T19:18:59.712740+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
@@ -8,70 +8,70 @@ window.CMIL_SITE_DATA = {
     "asset_count": 8,
     "narrative_count": 5,
     "bullish_count": 0,
-    "bearish_count": 0,
-    "mixed_count": 8
+    "bearish_count": 7,
+    "mixed_count": 1
   },
   "top_assets": [
     {
+      "symbol": "BTC",
+      "narrative": "bitcoin_ecosystem",
+      "attention_score": 8.350192,
+      "confirmation_score": 0.6667,
+      "top_driver": "derivatives_positioning",
+      "regime_tag": "bearish_attention"
+    },
+    {
       "symbol": "ADA",
       "narrative": "layer1",
-      "attention_score": 10.31063,
+      "attention_score": 6.50028,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
+      "regime_tag": "bearish_attention"
     },
     {
       "symbol": "SOL",
       "narrative": "layer1",
-      "attention_score": 8.008549,
+      "attention_score": 6.462739,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
-    },
-    {
-      "symbol": "ETH",
-      "narrative": "ethereum_ecosystem",
-      "attention_score": 7.844284,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
-    },
-    {
-      "symbol": "BTC",
-      "narrative": "bitcoin_ecosystem",
-      "attention_score": 6.970006,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
-    },
-    {
-      "symbol": "DOGE",
-      "narrative": "meme_social_beta",
-      "attention_score": 6.736051,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
-    },
-    {
-      "symbol": "BNB",
-      "narrative": "layer1",
-      "attention_score": 6.465707,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
-    },
-    {
-      "symbol": "LINK",
-      "narrative": "defi",
-      "attention_score": 6.150577,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
+      "regime_tag": "bearish_attention"
     },
     {
       "symbol": "XRP",
       "narrative": "layer1",
-      "attention_score": 6.125007,
+      "attention_score": 6.228887,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
+      "symbol": "ETH",
+      "narrative": "ethereum_ecosystem",
+      "attention_score": 6.089575,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
+      "symbol": "LINK",
+      "narrative": "defi",
+      "attention_score": 6.023451,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
+      "symbol": "DOGE",
+      "narrative": "meme_social_beta",
+      "attention_score": 5.480893,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
+      "symbol": "BNB",
+      "narrative": "layer1",
+      "attention_score": 4.078558,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention"
@@ -79,49 +79,66 @@ window.CMIL_SITE_DATA = {
   ],
   "top_narratives": [
     {
-      "narrative": "ethereum_ecosystem",
-      "asset_count": 1,
-      "avg_attention_score": 7.844284,
-      "avg_confirmation_score": 0.3333
-    },
-    {
-      "narrative": "layer1",
-      "asset_count": 4,
-      "avg_attention_score": 7.727473,
-      "avg_confirmation_score": 0.3333
-    },
-    {
       "narrative": "bitcoin_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 6.970006,
-      "avg_confirmation_score": 0.3333
+      "avg_attention_score": 8.350192,
+      "avg_confirmation_score": 0.6667
     },
     {
-      "narrative": "meme_social_beta",
+      "narrative": "ethereum_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 6.736051,
+      "avg_attention_score": 6.089575,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "defi",
       "asset_count": 1,
-      "avg_attention_score": 6.150577,
+      "avg_attention_score": 6.023451,
+      "avg_confirmation_score": 0.3333
+    },
+    {
+      "narrative": "layer1",
+      "asset_count": 4,
+      "avg_attention_score": 5.817616,
+      "avg_confirmation_score": 0.3333
+    },
+    {
+      "narrative": "meme_social_beta",
+      "asset_count": 1,
+      "avg_attention_score": 5.480893,
       "avg_confirmation_score": 0.3333
     }
   ],
   "asset_explorer_rows": [
     {
+      "symbol": "BTC",
+      "narrative": "bitcoin_ecosystem",
+      "attention_score": 8.350192,
+      "confirmation_score": 0.6667,
+      "top_driver": "derivatives_positioning",
+      "regime_tag": "bearish_attention",
+      "close_price": 67519,
+      "quote_volume": 59541587056,
+      "relative_strength_24h": -5.430224879508482,
+      "relative_strength_7d": -11.6662463903,
+      "relative_strength_30d": -14.176061399096254,
+      "breadth_flag": "broad",
+      "crowding_flag": false,
+      "funding_rate": 8.345e-05,
+      "open_interest": 110567.575
+    },
+    {
       "symbol": "ADA",
       "narrative": "layer1",
-      "attention_score": 10.31063,
+      "attention_score": 6.50028,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 0.169744,
-      "quote_volume": 552804947,
-      "relative_strength_24h": 4.6522013117320435,
-      "relative_strength_7d": -25.2811574358,
-      "relative_strength_30d": -37.40756662557673,
+      "regime_tag": "bearish_attention",
+      "close_price": 0.218304,
+      "quote_volume": 560450950,
+      "relative_strength_24h": -5.112847390045348,
+      "relative_strength_7d": -9.4816894753,
+      "relative_strength_30d": -12.933462120590855,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -130,100 +147,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "SOL",
       "narrative": "layer1",
-      "attention_score": 8.008549,
+      "attention_score": 6.462739,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 67.24,
-      "quote_volume": 3483619261,
-      "relative_strength_24h": 3.608508511480234,
-      "relative_strength_7d": -15.7885463797,
-      "relative_strength_30d": -28.007805416519922,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "ETH",
-      "narrative": "ethereum_ecosystem",
-      "attention_score": 7.844284,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 1692.53,
-      "quote_volume": 17959282606,
-      "relative_strength_24h": 3.920632498792126,
-      "relative_strength_7d": -13.8846241124,
-      "relative_strength_30d": -26.85500521210875,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "BTC",
-      "narrative": "bitcoin_ecosystem",
-      "attention_score": 6.970006,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 63808,
-      "quote_volume": 34960403066,
-      "relative_strength_24h": 2.8501005943000357,
-      "relative_strength_7d": -10.8389348223,
-      "relative_strength_30d": -20.611705744914946,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "DOGE",
-      "narrative": "meme_social_beta",
-      "attention_score": 6.736051,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 0.087019,
-      "quote_volume": 807636536,
-      "relative_strength_24h": 2.9293112255307707,
-      "relative_strength_7d": -12.1306511703,
-      "relative_strength_30d": -20.18253428101976,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "BNB",
-      "narrative": "layer1",
-      "attention_score": 6.465707,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 604.37,
-      "quote_volume": 875980157,
-      "relative_strength_24h": 2.2757987131710387,
-      "relative_strength_7d": -11.5226986613,
-      "relative_strength_30d": -6.593948234313504,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "LINK",
-      "narrative": "defi",
-      "attention_score": 6.150577,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 8.04,
-      "quote_volume": 328627103,
-      "relative_strength_24h": 4.137992803556643,
-      "relative_strength_7d": -9.3685300955,
-      "relative_strength_30d": -22.690199709426004,
+      "regime_tag": "bearish_attention",
+      "close_price": 76.73,
+      "quote_volume": 3175184369,
+      "relative_strength_24h": -4.725206320019649,
+      "relative_strength_7d": -8.7683161144,
+      "relative_strength_30d": -8.85800066934516,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -232,15 +164,83 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "XRP",
       "narrative": "layer1",
-      "attention_score": 6.125007,
+      "attention_score": 6.228887,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 1.23,
+      "quote_volume": 2351699602,
+      "relative_strength_24h": -4.828074056476627,
+      "relative_strength_7d": -7.9331527498,
+      "relative_strength_30d": -11.576377029543496,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "ETH",
+      "narrative": "ethereum_ecosystem",
+      "attention_score": 6.089575,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 1921.24,
+      "quote_volume": 18987822021,
+      "relative_strength_24h": -3.0815623617794503,
+      "relative_strength_7d": -7.5031865939,
+      "relative_strength_30d": -17.582474709696346,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "LINK",
+      "narrative": "defi",
+      "attention_score": 6.023451,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 8.62,
+      "quote_volume": 326629962,
+      "relative_strength_24h": -4.457910436705545,
+      "relative_strength_7d": -8.6019716308,
+      "relative_strength_30d": -5.826172741131554,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "DOGE",
+      "narrative": "meme_social_beta",
+      "attention_score": 5.480893,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 0.095522,
+      "quote_volume": 1187164262,
+      "relative_strength_24h": -4.196415703013572,
+      "relative_strength_7d": -5.7425945667,
+      "relative_strength_30d": -11.992878265033537,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "BNB",
+      "narrative": "layer1",
+      "attention_score": 4.078558,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention",
-      "close_price": 1.17,
-      "quote_volume": 2308344695,
-      "relative_strength_24h": 3.5982560668615644,
-      "relative_strength_7d": -8.5128014443,
-      "relative_strength_30d": -17.081479860816756,
+      "close_price": 665.5,
+      "quote_volume": 1611215555,
+      "relative_strength_24h": -3.0430151256332185,
+      "relative_strength_7d": 0.9687091892,
+      "relative_strength_30d": 7.324150768391953,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -249,77 +249,82 @@ window.CMIL_SITE_DATA = {
   ],
   "narrative_explorer_rows": [
     {
+      "narrative": "bitcoin_ecosystem",
+      "asset_count": 1,
+      "avg_attention_score": 8.350192,
+      "avg_confirmation_score": 0.6667,
+      "leader_symbol": "BTC",
+      "asset_symbols": [
+        "BTC"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
       "narrative": "ethereum_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 7.844284,
+      "avg_attention_score": 6.089575,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "ETH",
       "asset_symbols": [
         "ETH"
       ],
       "regime_mix": [
-        "mixed_attention"
-      ]
-    },
-    {
-      "narrative": "layer1",
-      "asset_count": 4,
-      "avg_attention_score": 7.727473,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "ADA",
-      "asset_symbols": [
-        "ADA",
-        "SOL",
-        "BNB",
-        "XRP"
-      ],
-      "regime_mix": [
-        "mixed_attention",
-        "mixed_attention",
-        "mixed_attention",
-        "mixed_attention"
-      ]
-    },
-    {
-      "narrative": "bitcoin_ecosystem",
-      "asset_count": 1,
-      "avg_attention_score": 6.970006,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "BTC",
-      "asset_symbols": [
-        "BTC"
-      ],
-      "regime_mix": [
-        "mixed_attention"
-      ]
-    },
-    {
-      "narrative": "meme_social_beta",
-      "asset_count": 1,
-      "avg_attention_score": 6.736051,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "DOGE",
-      "asset_symbols": [
-        "DOGE"
-      ],
-      "regime_mix": [
-        "mixed_attention"
+        "bearish_attention"
       ]
     },
     {
       "narrative": "defi",
       "asset_count": 1,
-      "avg_attention_score": 6.150577,
+      "avg_attention_score": 6.023451,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "LINK",
       "asset_symbols": [
         "LINK"
       ],
       "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
+      "narrative": "layer1",
+      "asset_count": 4,
+      "avg_attention_score": 5.817616,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "ADA",
+      "asset_symbols": [
+        "ADA",
+        "SOL",
+        "XRP",
+        "BNB"
+      ],
+      "regime_mix": [
+        "bearish_attention",
+        "bearish_attention",
+        "bearish_attention",
         "mixed_attention"
+      ]
+    },
+    {
+      "narrative": "meme_social_beta",
+      "asset_count": 1,
+      "avg_attention_score": 5.480893,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "DOGE",
+      "asset_symbols": [
+        "DOGE"
+      ],
+      "regime_mix": [
+        "bearish_attention"
       ]
     }
   ],
+  "refresh_policy": {
+    "trigger": "github_actions",
+    "cadence_label": "Every 12 hours",
+    "cadence_detail": "Automated snapshot refresh runs on a 12-hour cadence, with manual dispatch available from GitHub Actions."
+  },
   "architecture": [
     "Bronze: raw public API snapshots from CoinGecko, Binance, and DefiLlama.",
     "Silver: normalized market, derivatives, and on-chain records.",

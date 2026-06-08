@@ -208,6 +208,11 @@ def build_site_payload(
         "top_narratives": top_narratives,
         "asset_explorer_rows": asset_explorer_rows,
         "narrative_explorer_rows": narrative_explorer_rows,
+        "refresh_policy": {
+            "trigger": "github_actions",
+            "cadence_label": "Every 12 hours",
+            "cadence_detail": "Automated snapshot refresh runs on a 12-hour cadence, with manual dispatch available from GitHub Actions.",
+        },
         "architecture": [
             "Bronze: raw public API snapshots from CoinGecko, Binance, and DefiLlama.",
             "Silver: normalized market, derivatives, and on-chain records.",

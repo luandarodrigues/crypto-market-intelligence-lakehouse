@@ -83,6 +83,8 @@ def test_build_site_payload_summarizes_attention_and_regimes():
     assert payload["narrative_explorer_rows"][0]["narrative"] == "bitcoin_ecosystem"
     assert payload["narrative_explorer_rows"][1]["leader_symbol"] == "SOL"
     assert payload["narrative_explorer_rows"][1]["asset_symbols"] == ["SOL"]
+    assert payload["refresh_policy"]["cadence_label"] == "Every 12 hours"
+    assert payload["refresh_policy"]["trigger"] == "github_actions"
 
 
 def test_build_site_data_script_creates_browser_global():

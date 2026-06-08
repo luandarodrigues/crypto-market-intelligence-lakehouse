@@ -157,6 +157,29 @@ function buildAppInsightCard(label, title, body, tone) {
   return item;
 }
 
+function renderAppRefreshStatus(data) {
+  const refreshNote = document.getElementById("app-refresh-note");
+  if (!refreshNote) {
+    return;
+  }
+
+  const refreshPolicy = data.refresh_policy || {};
+  const cadenceLabel = refreshPolicy.cadence_label || "Manual refresh";
+  const cadenceDetail = refreshPolicy.cadence_detail || "Snapshot publishing currently depends on manual pipeline execution.";
+  const triggerLabel = refreshPolicy.trigger === "github_actions" ? "GitHub Actions" : "manual workflow";
+
+  refreshNote.innerHTML = `
+    <div class="asset-item-top">
+      <strong>Snapshot Freshness</strong>
+      ${buildTag(cadenceLabel.toLowerCase(), "neutral")}
+    </div>
+    <p>
+      <strong>${cadenceLabel}</strong> publishing cadence via ${triggerLabel}. ${cadenceDetail}
+    </p>
+    <p class="app-mini-label">${formatGeneratedAt(data.generated_at)}</p>
+  `;
+}
+
 function buildAppMiniItem(title, value, body, tags = []) {
   const item = document.createElement("article");
   item.className = "app-mini-item";
@@ -1012,6 +1035,7 @@ function renderAppPage() {
     buildHeroMetric("Top narrative", formatNarrativeLabel(data.top_narratives[0]?.narrative || "N/A"), "current aggregated leader"),
   );
 
+  renderAppRefreshStatus(data);
   renderAppInsights(data);
   renderAppCommandCenter(data);
   renderAppVisuals(data);
