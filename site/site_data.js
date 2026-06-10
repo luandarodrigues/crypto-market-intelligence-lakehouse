@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-10T03:57:05.553760+00:00",
+  "generated_at": "2026-06-10T15:39:57.734509+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
@@ -8,54 +8,30 @@ window.CMIL_SITE_DATA = {
     "asset_count": 31,
     "narrative_count": 13,
     "bullish_count": 0,
-    "bearish_count": 27,
-    "mixed_count": 4
+    "bearish_count": 10,
+    "mixed_count": 21
   },
   "top_assets": [
     {
-      "symbol": "ADA",
-      "narrative": "layer1",
-      "attention_score": 9.377199,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention"
-    },
-    {
-      "symbol": "BCH",
-      "narrative": "unassigned",
-      "attention_score": 9.116226,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention"
-    },
-    {
       "symbol": "NEAR",
       "narrative": "unassigned",
-      "attention_score": 9.050261,
+      "attention_score": 10.950658,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention"
     },
     {
+      "symbol": "ENA",
+      "narrative": "restaking_modular",
+      "attention_score": 10.702281,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
       "symbol": "RENDER",
       "narrative": "depin_infra",
-      "attention_score": 9.027427,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention"
-    },
-    {
-      "symbol": "SEI",
-      "narrative": "layer1",
-      "attention_score": 8.897147,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention"
-    },
-    {
-      "symbol": "JUP",
-      "narrative": "solana_ecosystem",
-      "attention_score": 8.784703,
+      "attention_score": 10.157101,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bearish_attention"
@@ -63,15 +39,39 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "FET",
       "narrative": "ai_data",
-      "attention_score": 8.758762,
+      "attention_score": 9.783323,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bearish_attention"
     },
     {
-      "symbol": "APT",
+      "symbol": "SEI",
       "narrative": "layer1",
-      "attention_score": 8.325098,
+      "attention_score": 9.334624,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention"
+    },
+    {
+      "symbol": "INJ",
+      "narrative": "layer1",
+      "attention_score": 9.172626,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention"
+    },
+    {
+      "symbol": "JUP",
+      "narrative": "solana_ecosystem",
+      "attention_score": 9.149703,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention"
+    },
+    {
+      "symbol": "ADA",
+      "narrative": "layer1",
+      "attention_score": 8.887983,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention"
@@ -79,89 +79,72 @@ window.CMIL_SITE_DATA = {
   ],
   "top_narratives": [
     {
+      "narrative": "restaking_modular",
+      "asset_count": 1,
+      "avg_attention_score": 10.702281,
+      "avg_confirmation_score": 0.3333
+    },
+    {
       "narrative": "depin_infra",
       "asset_count": 1,
-      "avg_attention_score": 9.027427,
+      "avg_attention_score": 10.157101,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "solana_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 8.784703,
+      "avg_attention_score": 9.149703,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "unassigned",
       "asset_count": 4,
-      "avg_attention_score": 7.41209,
-      "avg_confirmation_score": 0.3333
-    },
-    {
-      "narrative": "layer1",
-      "asset_count": 11,
-      "avg_attention_score": 7.155135,
+      "avg_attention_score": 7.754664,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "ai_data",
       "asset_count": 2,
-      "avg_attention_score": 7.109986,
+      "avg_attention_score": 7.540607,
       "avg_confirmation_score": 0.3333
     },
     {
-      "narrative": "ethereum_ecosystem",
+      "narrative": "rwa",
       "asset_count": 1,
-      "avg_attention_score": 7.032979,
+      "avg_attention_score": 7.339242,
       "avg_confirmation_score": 0.3333
     }
   ],
   "asset_explorer_rows": [
     {
-      "symbol": "ADA",
-      "narrative": "layer1",
-      "attention_score": 9.377199,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 0.162214,
-      "quote_volume": 427567116,
-      "relative_strength_24h": -2.4257057304562495,
-      "relative_strength_7d": -23.484825089,
-      "relative_strength_30d": -41.5491412408587,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "BCH",
-      "narrative": "unassigned",
-      "attention_score": 9.116226,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 202.17,
-      "quote_volume": 144105868,
-      "relative_strength_24h": -2.5501452122165245,
-      "relative_strength_7d": -23.00263286,
-      "relative_strength_30d": -55.75402684244556,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
       "symbol": "NEAR",
       "narrative": "unassigned",
-      "attention_score": 9.050261,
+      "attention_score": 10.950658,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention",
-      "close_price": 2.14,
-      "quote_volume": 523658628,
-      "relative_strength_24h": 4.45168115791996,
-      "relative_strength_7d": -20.4330305407,
-      "relative_strength_30d": 39.59274614026748,
+      "close_price": 2.1,
+      "quote_volume": 536905907,
+      "relative_strength_24h": 1.9835099694647547,
+      "relative_strength_7d": -29.9939667749,
+      "relative_strength_30d": 38.73861410518906,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "ENA",
+      "narrative": "restaking_modular",
+      "attention_score": 10.702281,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 0.078612,
+      "quote_volume": 162271637,
+      "relative_strength_24h": -2.1253926887170165,
+      "relative_strength_7d": -29.6144715508,
+      "relative_strength_30d": -38.129977289609954,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -170,49 +153,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "RENDER",
       "narrative": "depin_infra",
-      "attention_score": 9.027427,
+      "attention_score": 10.157101,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bearish_attention",
-      "close_price": 1.59,
-      "quote_volume": 47902745,
-      "relative_strength_24h": -0.6794230005172722,
-      "relative_strength_7d": -24.8136640925,
-      "relative_strength_30d": -20.08411630226999,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "SEI",
-      "narrative": "layer1",
-      "attention_score": 8.897147,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 0.04742797,
-      "quote_volume": 43054522,
-      "relative_strength_24h": -1.1501736940172262,
-      "relative_strength_7d": -23.9808212041,
-      "relative_strength_30d": -35.62367007315132,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "JUP",
-      "narrative": "solana_ecosystem",
-      "attention_score": 8.784703,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 0.151802,
-      "quote_volume": 20678929,
-      "relative_strength_24h": -1.8204488596476769,
-      "relative_strength_7d": -23.4407142326,
-      "relative_strength_30d": -40.72463867160129,
+      "close_price": 1.57,
+      "quote_volume": 53804329,
+      "relative_strength_24h": -1.2924070398759722,
+      "relative_strength_7d": -28.771334915,
+      "relative_strength_30d": -19.837584845538416,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -221,15 +170,83 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "FET",
       "narrative": "ai_data",
-      "attention_score": 8.758762,
+      "attention_score": 9.783323,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bearish_attention",
-      "close_price": 0.19778,
-      "quote_volume": 59789577,
-      "relative_strength_24h": -3.9083620739412925,
-      "relative_strength_7d": -21.0210817246,
-      "relative_strength_30d": -16.043017992157115,
+      "close_price": 0.196761,
+      "quote_volume": 65617610,
+      "relative_strength_24h": -1.099764615899951,
+      "relative_strength_7d": -27.3096528989,
+      "relative_strength_30d": -16.00023799311863,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "SEI",
+      "narrative": "layer1",
+      "attention_score": 9.334624,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 0.04811961,
+      "quote_volume": 39362849,
+      "relative_strength_24h": 2.5863316806803467,
+      "relative_strength_7d": -24.6363083332,
+      "relative_strength_30d": -34.70573419436621,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "INJ",
+      "narrative": "layer1",
+      "attention_score": 9.172626,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "bearish_attention",
+      "close_price": 5.31,
+      "quote_volume": 112535900,
+      "relative_strength_24h": -4.202758722155904,
+      "relative_strength_7d": -22.0564905719,
+      "relative_strength_30d": 22.640244675214248,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "JUP",
+      "narrative": "solana_ecosystem",
+      "attention_score": 9.149703,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 0.153657,
+      "quote_volume": 20332933,
+      "relative_strength_24h": 0.2489102027031439,
+      "relative_strength_7d": -26.1682042669,
+      "relative_strength_30d": -36.08496171943564,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "ADA",
+      "narrative": "layer1",
+      "attention_score": 8.887983,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 0.165693,
+      "quote_volume": 458718984,
+      "relative_strength_24h": 1.1793686731203323,
+      "relative_strength_7d": -22.482270748,
+      "relative_strength_30d": -40.73823922313811,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -238,15 +255,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "APT",
       "narrative": "layer1",
-      "attention_score": 8.325098,
+      "attention_score": 8.611047,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 0.659248,
-      "quote_volume": 56771427,
-      "relative_strength_24h": 2.382439212563388,
-      "relative_strength_7d": -20.5386591289,
-      "relative_strength_30d": -41.814124925851395,
+      "regime_tag": "bearish_attention",
+      "close_price": 0.653071,
+      "quote_volume": 49529129,
+      "relative_strength_24h": -0.23412039883473462,
+      "relative_strength_7d": -23.4840876085,
+      "relative_strength_30d": -41.232361929307196,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -255,49 +272,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "AVAX",
       "narrative": "layer1",
-      "attention_score": 8.16381,
+      "attention_score": 8.117571,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 6.58,
-      "quote_volume": 172190721,
-      "relative_strength_24h": -1.3386065152873685,
-      "relative_strength_7d": -20.0539391706,
-      "relative_strength_30d": -34.6033004005456,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "TON",
-      "narrative": "layer1",
-      "attention_score": 7.332469,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 1.68,
-      "quote_volume": 186740358,
-      "relative_strength_24h": -2.3370995945003368,
-      "relative_strength_7d": -15.880462968,
-      "relative_strength_30d": -30.488570503347688,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "SOL",
-      "narrative": "layer1",
-      "attention_score": 7.187901,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bearish_attention",
-      "close_price": 64.47,
-      "quote_volume": 2947550801,
-      "relative_strength_24h": -2.2131429735849344,
-      "relative_strength_7d": -13.7238446098,
-      "relative_strength_30d": -32.882741941167296,
+      "regime_tag": "mixed_attention",
+      "close_price": 6.57,
+      "quote_volume": 189638868,
+      "relative_strength_24h": 0.18667768575258764,
+      "relative_strength_7d": -20.7318454619,
+      "relative_strength_30d": -34.87624304557547,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -306,15 +289,32 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "AAVE",
       "narrative": "defi",
-      "attention_score": 7.161353,
+      "attention_score": 7.904538,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 63.28,
+      "quote_volume": 161208949,
+      "relative_strength_24h": 4.723551959413891,
+      "relative_strength_7d": -16.3489670504,
+      "relative_strength_30d": -36.71085991305706,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "TON",
+      "narrative": "layer1",
+      "attention_score": 7.877752,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bearish_attention",
-      "close_price": 61.66,
-      "quote_volume": 140452550,
-      "relative_strength_24h": -0.5325962982704227,
-      "relative_strength_7d": -16.8127942754,
-      "relative_strength_30d": -38.51785661771103,
+      "close_price": 1.69,
+      "quote_volume": 168769454,
+      "relative_strength_24h": -1.01858425183543,
+      "relative_strength_7d": -19.1779277295,
+      "relative_strength_30d": -26.752212728770548,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -323,9 +323,22 @@ window.CMIL_SITE_DATA = {
   ],
   "narrative_explorer_rows": [
     {
+      "narrative": "restaking_modular",
+      "asset_count": 1,
+      "avg_attention_score": 10.702281,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "ENA",
+      "asset_symbols": [
+        "ENA"
+      ],
+      "regime_mix": [
+        "bearish_attention"
+      ]
+    },
+    {
       "narrative": "depin_infra",
       "asset_count": 1,
-      "avg_attention_score": 9.027427,
+      "avg_attention_score": 10.157101,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "RENDER",
       "asset_symbols": [
@@ -338,58 +351,33 @@ window.CMIL_SITE_DATA = {
     {
       "narrative": "solana_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 8.784703,
+      "avg_attention_score": 9.149703,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "JUP",
       "asset_symbols": [
         "JUP"
       ],
       "regime_mix": [
-        "bearish_attention"
+        "mixed_attention"
       ]
     },
     {
       "narrative": "unassigned",
       "asset_count": 4,
-      "avg_attention_score": 7.41209,
+      "avg_attention_score": 7.754664,
       "avg_confirmation_score": 0.3333,
-      "leader_symbol": "BCH",
+      "leader_symbol": "NEAR",
       "asset_symbols": [
-        "BCH",
         "NEAR"
       ],
       "regime_mix": [
-        "bearish_attention",
         "mixed_attention"
-      ]
-    },
-    {
-      "narrative": "layer1",
-      "asset_count": 11,
-      "avg_attention_score": 7.155135,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "ADA",
-      "asset_symbols": [
-        "ADA",
-        "SEI",
-        "APT",
-        "AVAX",
-        "TON",
-        "SOL"
-      ],
-      "regime_mix": [
-        "bearish_attention",
-        "bearish_attention",
-        "mixed_attention",
-        "bearish_attention",
-        "bearish_attention",
-        "bearish_attention"
       ]
     },
     {
       "narrative": "ai_data",
       "asset_count": 2,
-      "avg_attention_score": 7.109986,
+      "avg_attention_score": 7.540607,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "FET",
       "asset_symbols": [
@@ -400,16 +388,39 @@ window.CMIL_SITE_DATA = {
       ]
     },
     {
+      "narrative": "layer1",
+      "asset_count": 11,
+      "avg_attention_score": 7.247796,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "SEI",
+      "asset_symbols": [
+        "SEI",
+        "INJ",
+        "ADA",
+        "APT",
+        "AVAX",
+        "TON"
+      ],
+      "regime_mix": [
+        "mixed_attention",
+        "bearish_attention",
+        "mixed_attention",
+        "bearish_attention",
+        "mixed_attention",
+        "bearish_attention"
+      ]
+    },
+    {
       "narrative": "defi",
       "asset_count": 3,
-      "avg_attention_score": 6.16309,
+      "avg_attention_score": 6.506067,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "AAVE",
       "asset_symbols": [
         "AAVE"
       ],
       "regime_mix": [
-        "bearish_attention"
+        "mixed_attention"
       ]
     }
   ],
