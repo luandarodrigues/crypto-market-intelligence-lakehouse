@@ -1,5 +1,5 @@
 window.CMIL_SITE_DATA = {
-  "generated_at": "2026-06-14T04:18:42.681134+00:00",
+  "generated_at": "2026-06-14T14:08:29.428713+00:00",
   "headline": {
     "title": "Crypto Market Intelligence Lakehouse",
     "subtitle": "A Databricks-oriented market intelligence platform for spotting which crypto assets and narratives deserve attention, and why."
@@ -7,23 +7,15 @@ window.CMIL_SITE_DATA = {
   "overview": {
     "asset_count": 31,
     "narrative_count": 13,
-    "bullish_count": 22,
-    "bearish_count": 0,
-    "mixed_count": 9
+    "bullish_count": 6,
+    "bearish_count": 8,
+    "mixed_count": 17
   },
   "top_assets": [
     {
       "symbol": "TAO",
       "narrative": "ai_data",
-      "attention_score": 17.94408,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention"
-    },
-    {
-      "symbol": "NEAR",
-      "narrative": "unassigned",
-      "attention_score": 8.36025,
+      "attention_score": 10.209381,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bullish_attention"
@@ -31,7 +23,7 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "ATOM",
       "narrative": "cosmos_interop",
-      "attention_score": 7.284063,
+      "attention_score": 6.950288,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention"
@@ -39,23 +31,23 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "ENA",
       "narrative": "restaking_modular",
-      "attention_score": 6.74904,
+      "attention_score": 5.969157,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention"
+      "regime_tag": "bearish_attention"
     },
     {
-      "symbol": "FET",
-      "narrative": "ai_data",
-      "attention_score": 6.535497,
+      "symbol": "BCH",
+      "narrative": "unassigned",
+      "attention_score": 5.727854,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention"
+      "regime_tag": "bearish_attention"
     },
     {
-      "symbol": "RENDER",
-      "narrative": "depin_infra",
-      "attention_score": 6.265473,
+      "symbol": "NEAR",
+      "narrative": "unassigned",
+      "attention_score": 5.613417,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bullish_attention"
@@ -63,55 +55,63 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "JUP",
       "narrative": "solana_ecosystem",
-      "attention_score": 6.03922,
+      "attention_score": 5.354384,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention"
+      "regime_tag": "mixed_attention"
     },
     {
-      "symbol": "SOL",
+      "symbol": "SEI",
       "narrative": "layer1",
-      "attention_score": 6.000877,
+      "attention_score": 5.241666,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention"
+      "regime_tag": "mixed_attention"
+    },
+    {
+      "symbol": "ONDO",
+      "narrative": "rwa",
+      "attention_score": 4.853187,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention"
     }
   ],
   "top_narratives": [
     {
       "narrative": "ai_data",
       "asset_count": 2,
-      "avg_attention_score": 12.239788,
+      "avg_attention_score": 7.097632,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "restaking_modular",
       "asset_count": 1,
-      "avg_attention_score": 6.74904,
-      "avg_confirmation_score": 0.3333
-    },
-    {
-      "narrative": "depin_infra",
-      "asset_count": 1,
-      "avg_attention_score": 6.265473,
-      "avg_confirmation_score": 0.3333
-    },
-    {
-      "narrative": "solana_ecosystem",
-      "asset_count": 1,
-      "avg_attention_score": 6.03922,
+      "avg_attention_score": 5.969157,
       "avg_confirmation_score": 0.3333
     },
     {
       "narrative": "cosmos_interop",
       "asset_count": 2,
-      "avg_attention_score": 5.461055,
+      "avg_attention_score": 5.413334,
       "avg_confirmation_score": 0.3333
     },
     {
-      "narrative": "unassigned",
-      "asset_count": 4,
-      "avg_attention_score": 5.422293,
+      "narrative": "solana_ecosystem",
+      "asset_count": 1,
+      "avg_attention_score": 5.354384,
+      "avg_confirmation_score": 0.3333
+    },
+    {
+      "narrative": "rwa",
+      "asset_count": 1,
+      "avg_attention_score": 4.853187,
+      "avg_confirmation_score": 0.3333
+    },
+    {
+      "narrative": "depin_infra",
+      "asset_count": 1,
+      "avg_attention_score": 4.758073,
       "avg_confirmation_score": 0.3333
     }
   ],
@@ -119,32 +119,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "TAO",
       "narrative": "ai_data",
-      "attention_score": 17.94408,
+      "attention_score": 10.209381,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bullish_attention",
-      "close_price": 277.86,
-      "quote_volume": 536254313,
-      "relative_strength_24h": 27.9183134930103,
-      "relative_strength_7d": 37.2205485202,
-      "relative_strength_30d": -9.166048242626351,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "NEAR",
-      "narrative": "unassigned",
-      "attention_score": 8.36025,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 2.13,
-      "quote_volume": 322094848,
-      "relative_strength_24h": 6.683340609087879,
-      "relative_strength_7d": 16.1831488846,
-      "relative_strength_30d": 36.223434426872295,
+      "close_price": 263.58,
+      "quote_volume": 539179393,
+      "relative_strength_24h": 2.334580423298353,
+      "relative_strength_7d": 26.7454320162,
+      "relative_strength_30d": -11.80550575476786,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -153,15 +136,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "ATOM",
       "narrative": "cosmos_interop",
-      "attention_score": 7.284063,
+      "attention_score": 6.950288,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "mixed_attention",
-      "close_price": 1.94,
-      "quote_volume": 27581896,
-      "relative_strength_24h": -2.9577115586370826,
-      "relative_strength_7d": 16.353209659,
-      "relative_strength_30d": -3.9612275548395277,
+      "close_price": 1.93,
+      "quote_volume": 27475392,
+      "relative_strength_24h": -2.131750126152919,
+      "relative_strength_7d": 15.6812316934,
+      "relative_strength_30d": -1.53968322716545,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -170,49 +153,49 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "ENA",
       "narrative": "restaking_modular",
-      "attention_score": 6.74904,
+      "attention_score": 5.969157,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "mixed_attention",
-      "close_price": 0.08404,
-      "quote_volume": 154917171,
-      "relative_strength_24h": 8.802439167387806,
-      "relative_strength_7d": -8.4880673105,
-      "relative_strength_30d": -30.58146740348911,
+      "regime_tag": "bearish_attention",
+      "close_price": 0.08166,
+      "quote_volume": 135835648,
+      "relative_strength_24h": -4.671515075401557,
+      "relative_strength_7d": -8.7531985125,
+      "relative_strength_30d": -27.374795467640713,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
       "open_interest": null
     },
     {
-      "symbol": "FET",
-      "narrative": "ai_data",
-      "attention_score": 6.535497,
+      "symbol": "BCH",
+      "narrative": "unassigned",
+      "attention_score": 5.727854,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 0.211616,
-      "quote_volume": 130149765,
-      "relative_strength_24h": 14.884243938586472,
-      "relative_strength_7d": 2.8743708886,
-      "relative_strength_30d": -0.8714942677741814,
+      "regime_tag": "bearish_attention",
+      "close_price": 202.14,
+      "quote_volume": 95393657,
+      "relative_strength_24h": -3.2468273235823526,
+      "relative_strength_7d": -9.1426287066,
+      "relative_strength_30d": -53.059978248687834,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
       "open_interest": null
     },
     {
-      "symbol": "RENDER",
-      "narrative": "depin_infra",
-      "attention_score": 6.265473,
+      "symbol": "NEAR",
+      "narrative": "unassigned",
+      "attention_score": 5.613417,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bullish_attention",
-      "close_price": 1.77,
-      "quote_volume": 75666920,
-      "relative_strength_24h": 6.690237624608036,
-      "relative_strength_7d": 8.6792338643,
-      "relative_strength_30d": -7.154613803729033,
+      "close_price": 2.09,
+      "quote_volume": 306450826,
+      "relative_strength_24h": 1.1593116861945503,
+      "relative_strength_7d": 9.6453115604,
+      "relative_strength_30d": 37.47775913165984,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -221,32 +204,15 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "JUP",
       "narrative": "solana_ecosystem",
-      "attention_score": 6.03922,
+      "attention_score": 5.354384,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 0.172916,
-      "quote_volume": 22056090,
-      "relative_strength_24h": 2.663090098849107,
-      "relative_strength_7d": 11.7454696678,
-      "relative_strength_30d": -23.062401749579024,
-      "breadth_flag": "narrow",
-      "crowding_flag": false,
-      "funding_rate": null,
-      "open_interest": null
-    },
-    {
-      "symbol": "SOL",
-      "narrative": "layer1",
-      "attention_score": 6.000877,
-      "confirmation_score": 0.3333,
-      "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 68.84,
-      "quote_volume": 1587035521,
-      "relative_strength_24h": 3.1884668607735334,
-      "relative_strength_7d": 8.5719118983,
-      "relative_strength_30d": -25.182568865529,
+      "regime_tag": "mixed_attention",
+      "close_price": 0.168885,
+      "quote_volume": 14926837,
+      "relative_strength_24h": -2.4697478008505818,
+      "relative_strength_7d": 9.398183428,
+      "relative_strength_30d": -19.466237944896008,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -255,49 +221,49 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "SEI",
       "narrative": "layer1",
-      "attention_score": 5.935547,
+      "attention_score": 5.241666,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 0.053969,
-      "quote_volume": 46088090,
-      "relative_strength_24h": 1.0775516782169667,
-      "relative_strength_7d": 12.1511204687,
-      "relative_strength_30d": -19.50408339039014,
+      "regime_tag": "mixed_attention",
+      "close_price": 0.052745,
+      "quote_volume": 29712385,
+      "relative_strength_24h": -3.1218144825130927,
+      "relative_strength_7d": 8.0070984217,
+      "relative_strength_30d": -19.950206417464067,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
       "open_interest": null
     },
     {
-      "symbol": "AAVE",
-      "narrative": "defi",
-      "attention_score": 5.32237,
+      "symbol": "ONDO",
+      "narrative": "rwa",
+      "attention_score": 4.853187,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 67.02,
-      "quote_volume": 110951410,
-      "relative_strength_24h": 3.1214407609805215,
-      "relative_strength_7d": 7.5291397304,
-      "relative_strength_30d": -31.85518528604926,
+      "regime_tag": "mixed_attention",
+      "close_price": 0.349022,
+      "quote_volume": 76042370,
+      "relative_strength_24h": -5.9763763422010925,
+      "relative_strength_7d": 3.5981701583,
+      "relative_strength_30d": -7.604927534355749,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
       "open_interest": null
     },
     {
-      "symbol": "ADA",
-      "narrative": "layer1",
-      "attention_score": 5.12717,
+      "symbol": "RENDER",
+      "narrative": "depin_infra",
+      "attention_score": 4.758073,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
-      "regime_tag": "bullish_attention",
-      "close_price": 0.172735,
-      "quote_volume": 329599502,
-      "relative_strength_24h": 1.6961510437317306,
-      "relative_strength_7d": 7.2265768617,
-      "relative_strength_30d": -35.9410675082078,
+      "regime_tag": "mixed_attention",
+      "close_price": 1.74,
+      "quote_volume": 59089987,
+      "relative_strength_24h": -3.58182369343151,
+      "relative_strength_7d": 5.2867129958,
+      "relative_strength_30d": -4.770041297041731,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -306,15 +272,49 @@ window.CMIL_SITE_DATA = {
     {
       "symbol": "BTC",
       "narrative": "bitcoin_ecosystem",
-      "attention_score": 5.107412,
+      "attention_score": 4.694178,
       "confirmation_score": 0.3333,
       "top_driver": "volume_strength",
       "regime_tag": "bullish_attention",
-      "close_price": 64480,
-      "quote_volume": 17415126784,
-      "relative_strength_24h": 1.5436111374374073,
-      "relative_strength_7d": 4.8574615687,
-      "relative_strength_30d": -20.44963107940744,
+      "close_price": 64295,
+      "quote_volume": 17653168708,
+      "relative_strength_24h": 0.2991765680627694,
+      "relative_strength_7d": 4.1918186337,
+      "relative_strength_30d": -18.34785761444059,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "SOL",
+      "narrative": "layer1",
+      "attention_score": 4.645219,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 67.69,
+      "quote_volume": 1502944335,
+      "relative_strength_24h": -0.520871298450133,
+      "relative_strength_7d": 5.316460553,
+      "relative_strength_30d": -25.28915669972348,
+      "breadth_flag": "narrow",
+      "crowding_flag": false,
+      "funding_rate": null,
+      "open_interest": null
+    },
+    {
+      "symbol": "ADA",
+      "narrative": "layer1",
+      "attention_score": 4.593349,
+      "confirmation_score": 0.3333,
+      "top_driver": "volume_strength",
+      "regime_tag": "mixed_attention",
+      "close_price": 0.167478,
+      "quote_volume": 303440974,
+      "relative_strength_24h": -3.831221152414427,
+      "relative_strength_7d": 3.4335165069,
+      "relative_strength_30d": -35.50011950865758,
       "breadth_flag": "narrow",
       "crowding_flag": false,
       "funding_rate": null,
@@ -325,61 +325,33 @@ window.CMIL_SITE_DATA = {
     {
       "narrative": "ai_data",
       "asset_count": 2,
-      "avg_attention_score": 12.239788,
+      "avg_attention_score": 7.097632,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "TAO",
       "asset_symbols": [
-        "TAO",
-        "FET"
+        "TAO"
       ],
       "regime_mix": [
-        "bullish_attention",
         "bullish_attention"
       ]
     },
     {
       "narrative": "restaking_modular",
       "asset_count": 1,
-      "avg_attention_score": 6.74904,
+      "avg_attention_score": 5.969157,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "ENA",
       "asset_symbols": [
         "ENA"
       ],
       "regime_mix": [
-        "mixed_attention"
-      ]
-    },
-    {
-      "narrative": "depin_infra",
-      "asset_count": 1,
-      "avg_attention_score": 6.265473,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "RENDER",
-      "asset_symbols": [
-        "RENDER"
-      ],
-      "regime_mix": [
-        "bullish_attention"
-      ]
-    },
-    {
-      "narrative": "solana_ecosystem",
-      "asset_count": 1,
-      "avg_attention_score": 6.03922,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "JUP",
-      "asset_symbols": [
-        "JUP"
-      ],
-      "regime_mix": [
-        "bullish_attention"
+        "bearish_attention"
       ]
     },
     {
       "narrative": "cosmos_interop",
       "asset_count": 2,
-      "avg_attention_score": 5.461055,
+      "avg_attention_score": 5.413334,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "ATOM",
       "asset_symbols": [
@@ -390,22 +362,63 @@ window.CMIL_SITE_DATA = {
       ]
     },
     {
+      "narrative": "solana_ecosystem",
+      "asset_count": 1,
+      "avg_attention_score": 5.354384,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "JUP",
+      "asset_symbols": [
+        "JUP"
+      ],
+      "regime_mix": [
+        "mixed_attention"
+      ]
+    },
+    {
+      "narrative": "rwa",
+      "asset_count": 1,
+      "avg_attention_score": 4.853187,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "ONDO",
+      "asset_symbols": [
+        "ONDO"
+      ],
+      "regime_mix": [
+        "mixed_attention"
+      ]
+    },
+    {
+      "narrative": "depin_infra",
+      "asset_count": 1,
+      "avg_attention_score": 4.758073,
+      "avg_confirmation_score": 0.3333,
+      "leader_symbol": "RENDER",
+      "asset_symbols": [
+        "RENDER"
+      ],
+      "regime_mix": [
+        "mixed_attention"
+      ]
+    },
+    {
       "narrative": "unassigned",
       "asset_count": 4,
-      "avg_attention_score": 5.422293,
+      "avg_attention_score": 4.698651,
       "avg_confirmation_score": 0.3333,
-      "leader_symbol": "NEAR",
+      "leader_symbol": "BCH",
       "asset_symbols": [
+        "BCH",
         "NEAR"
       ],
       "regime_mix": [
+        "bearish_attention",
         "bullish_attention"
       ]
     },
     {
       "narrative": "bitcoin_ecosystem",
       "asset_count": 1,
-      "avg_attention_score": 5.107412,
+      "avg_attention_score": 4.694178,
       "avg_confirmation_score": 0.3333,
       "leader_symbol": "BTC",
       "asset_symbols": [
@@ -416,33 +429,20 @@ window.CMIL_SITE_DATA = {
       ]
     },
     {
-      "narrative": "defi",
-      "asset_count": 3,
-      "avg_attention_score": 4.387087,
-      "avg_confirmation_score": 0.3333,
-      "leader_symbol": "AAVE",
-      "asset_symbols": [
-        "AAVE"
-      ],
-      "regime_mix": [
-        "bullish_attention"
-      ]
-    },
-    {
       "narrative": "layer1",
       "asset_count": 11,
-      "avg_attention_score": 4.315527,
+      "avg_attention_score": 4.023704,
       "avg_confirmation_score": 0.3333,
-      "leader_symbol": "SOL",
+      "leader_symbol": "SEI",
       "asset_symbols": [
-        "SOL",
         "SEI",
+        "SOL",
         "ADA"
       ],
       "regime_mix": [
-        "bullish_attention",
-        "bullish_attention",
-        "bullish_attention"
+        "mixed_attention",
+        "mixed_attention",
+        "mixed_attention"
       ]
     }
   ],
